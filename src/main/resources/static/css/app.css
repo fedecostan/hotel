@@ -1,0 +1,370 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+.fondo{
+	background: url(../img/swirl.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+	text-align: center;
+}
+h1 {font: bold 40px verdana, sans-serif;}
+h3 {font: bold 15px verdana, sans-serif;}
+
+p{font-size: 20px;}
+p:nth-child(odd){background: #999999;}
+p:nth-child(even){background: #cccccc;}
+p.principal{font-size: 40px;}
+p.secundario{font-size: 60px;}
+
+.primero{
+	background: url(../img/swirl.png);
+	background-repeat: no-repeat;
+	margin-top: 10%;
+	margin-left: 25%;
+	width: 50%;
+	height: 60%;
+
+}
+.agrupar{ 
+	width: 95%;
+	margin: 15px auto;
+	text-align: left;
+}
+.cabecera{
+	width: 70%;
+	padding: 20px;
+	color: #1869C4;
+	text-shadow: rgb(0,0,150) 3px 3px 5px;
+	float: left;
+}
+#izqui {
+	width: 20%;
+	padding-top: 20px;
+	padding-left: 80px;
+	float: left;
+}
+#des1 {
+	float: left;
+}
+#des2 {
+	margin-top: 5px;
+	margin-right: 20px;
+	float: right;
+}
+.menunav{
+	clear: both;
+	background: -webkit-linear-gradient(top,#ffffff,#006699);
+	padding: 5px 15px;
+	border-radius: 20px;
+
+}
+.menunav li {
+	display: inline-block;
+	list-style: none;
+	padding: 5px;
+	font: bold 14px verdana, sans-serif;
+
+}
+#seccion {
+	width: 100%;
+	margin: 20px;
+	float: left;
+}
+.menu{
+	width: 100%;
+	margin: 10px auto;
+	height: 490px;
+	background: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 20px;
+}
+/* comprobante de la factua--*/
+.encabezado1{
+	width: 90%;
+	margin:5px 5px;
+	margin-left: 20px;
+	height: 20px;
+	background: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 20px;
+	padding: 5px;
+}
+.fechade{
+	width: 15%; 
+	height: 20px;
+	margin-left: 20px; 
+	float: left;
+}
+.defecha{
+	width:90px; 
+	font-size:.95em; 
+	border-radius:5px;
+	margin-bottom: 5px;
+	background: #ddd; 
+	outline: none;	
+	border:none;
+	padding-left: 5px;
+}
+.tipocomprob{
+	width: 30%; 
+	height: 20px;
+	float: left;
+}
+.puntode{
+	width: 40%; 
+	height: 20px;
+	padding-left: 40px;	 
+	float: left;
+}
+.depunto{
+	width:50px; 
+	font-size:.95em; 
+	border-radius:5px;
+	margin-bottom: 5px;
+	background: #ddd; 
+	outline: none;	
+	border:none;
+	padding-left: 5px;
+}
+.decomprobante{
+	width:90px; 
+	font-size:.95em; 
+	border-radius:5px;
+	margin-bottom: 5px;
+	background: #ddd; 
+	outline: none;	
+	border:none;
+	padding-left: 5px;
+
+}
+/* encabezado de la factua--*/
+.encabezado2{
+	width: 90%;
+	margin:5px 5px;
+	margin-left: 20px;
+	height: 70px;
+	background: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 20px;
+	padding: 5px;
+}
+.form1 {
+	margin-left: 5px;
+	width: 100%;
+	float: left;
+}
+.form2 {
+	margin-left: 5px;
+	width: 45%;
+	float: left;
+}
+.form1-form1 {
+	float: left;
+}
+.form1-form2 {
+	padding-left: 20%;
+	float: left;
+}
+.form3 {
+	margin-left: 5px;
+	width: 25%;
+	float: left;
+}
+.form4 {
+	margin-left: 5px;
+	width: 25%;
+	float: left;
+}
+
+.tipocomprobsele{
+	background: #ddd;
+	outline: none;
+	border:none;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	width: 90%;
+}
+.encabezado2 .form .form1 .form2 .from3 .form-label{
+	position: relative;
+}
+
+.encabezado2 .form .form1 .form2 .form-input{
+	background: #ddd;
+	outline: none;
+	border:none;
+	width: 50px;
+	padding: 5px;
+	font-size: .95em;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.encabezado2 .form .form1 .form-input2{
+	background: #ddd;
+	outline: none;
+	border:none;
+	width: 100px;
+	padding: 5px;
+	font-size: .95em;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.encabezado2 .form .form3 .form-input3{
+	background: #ddd;
+	outline: none;
+	border:none;
+	width: 50px;
+	padding: 5px;
+	font-size: .95em;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.encabezado2 .form .form1 .form-input4{
+	background: #ddd;
+	outline: none;
+	border:none;
+	width: 50px;
+	padding: 5px;
+	font-size: .95em;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+.encabezado2 .form .form2 .form-label{
+	position: relative;
+}
+.encabezado2 .form .form2 .form-input{
+	background: #ddd;
+	outline: none;
+	border:none;
+	width: 20px;
+	padding: 5px;
+	font-size: .95em;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+/* detalle de la factua--*/
+.encabezado3{
+	width: 95%;
+	margin: 5px 5px;
+	margin-left: 20px;
+	height: 240px;
+	background: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 20px;
+	padding: 5px;
+}
+.sele11{
+	background: #ddd;
+	outline: none;
+	border:none;
+	border-radius: 5px;
+	margin-bottom: 20px;
+	width: 40%;
+}
+
+table{
+	background-color: #FFFFFF;
+	text-align: left;
+	border-collapse: collapse;
+	width: 100%;
+}
+thead {
+	background-color: #006699;
+	border-bottom: solid 2px #0F362D;
+	color: #FFFFFF;
+}
+th{
+	font-size: 0.85em;
+s}
+th, td{
+	border:solid 1px #080808;
+	padding: 2px;
+}
+tr:nth-child(even){
+	background-color: #ddd;
+}
+tr:hover td{
+	background-color: #006699;
+	color: #ffffff;
+}
+
+/* pie de la factua--*/
+.encabezado4{
+	width: 95%;
+	margin:5px 5px;
+	margin-left: 20px;
+	height: 80px;
+	background: #FFFFFF;
+	border: 1px solid #999999;
+	border-radius: 20px;
+	padding: 5px;
+}
+.form5 {
+	width: 33%;
+	float: left;
+}
+
+.form6 {
+	width: 70%;
+	float: left;
+}
+
+.totales{
+	width: 20%;
+	padding-left: 5%;
+	float: left;
+}
+
+
+textarea#leyen{
+	min-width: 700px;
+	max-width: 700px;
+	min-height: 20px;
+	max-height: 30px; 
+
+}
+
+/* pie de la pagina--*/
+#pie {
+	clear: both;
+	background: #B4B7FC;
+	text-align: center;
+	height: 20PX;
+	padding: 5px;
+	background: -webkit-linear-gradient(top,#ffffff,#006699);
+	border-radius: 20px;
+}
+
+#accions{
+	width: 100px;
+	background-color: #006699; 
+}
+#acciona{
+	width: 50px;
+	background-color: #006699; 
+}
+#accione{
+	width: 25px;
+	background-color: #006699; 
+
+}
+#accionb{
+	width: 25px;
+	background-color: red; 
+}
+
+.button {
+	background: #006699;
+	color: #ffffff;
+	display: inline-block;
+	font-size: 0.85em;
+	margin:2px;
+	padding: 1px 0px;
+	border-radius: 5px;	
+	text-align: center;
+	width: 45px;
+	text-decoration-line: none;
+}
+
