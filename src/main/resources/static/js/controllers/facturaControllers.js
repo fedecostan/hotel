@@ -5,6 +5,8 @@
             var self = this;
             var facturaUrl = '../facturaController/';
 
+            $scope.factura = [];
+
             $scope.factura.fecha = new Date();
 
             $scope.direccion = 'Calle 1589 - CP AA1111 - CABA';
