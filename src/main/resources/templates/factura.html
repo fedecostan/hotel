@@ -65,74 +65,62 @@
                         </div>
                     </div>
                     <div class="form2">
-                        <select class="sele11">
+                        <select class="sele11" ng-model="factura.situacionIVA">
                             <option value="" disabled selected> Situaciones de IVA</option>
-                            <option> value = "1111"</option>
-                            <option> value = "2222"</option>
+                            <option ng-repeat="situacion in situacionesIva"
+                                    value="{{situacion.value}}">{{situacion.name}}</option>
                         </select>
 
-                        <select class="sele11">
+                        <select class="sele11" ng-model="factura.condicionVenta">
                             <option value="" disabled selected> Condición de Venta</option>
-                            <option> value = "1111"</option>
-                            <option> value = "2222"</option>
+                            <option ng-repeat="condicion in condicionesVenta"
+                                     value="{{condicion.value}}">{{condicion.name}}</option>
                         </select>
 
                     </div>
                     <div class="form3">
-                        <label for="bonificacion" class="form-label">Bonificación %</label>
-                        <input type="text" id="bonificacion" maxlength="5" class="form-input3">
+                        <label class="form-label">Bonificación %</label>
+                        <input type="text" maxlength="5" class="form-input3" ng-model="factura.bonificacion">
                     </div>
                     <div class="form4">
-                        <label for="listaprecio" class="form-label">Lista A</label>
-                        <input type="radio" id="listaprecio" class="form-input-radio">
-                        <label for="listaprecio" class="form-label">Lista B</label>
-                        <input type="radio" id="listaprecio" class="form-input-radio">
-                        <label for="listaprecio" class="form-label">Lista C</label>
-                        <input type="radio" id="listaprecio" class="form-input-radio">
+                        <label class="form-label">Lista A</label>
+                        <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="A">
+                        <label class="form-label">Lista B</label>
+                        <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="B">
+                        <label class="form-label">Lista C</label>
+                        <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="C" ng-checked="true">
                     </div>
                 </form>
             </div>
             <div class="encabezado3">
-                <div class="">
+                <div class=""></div>
 
-                </div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Fecha</th>
-                        <th>Código de Artículo</th>
-                        <th>Descripción</th>
-                        <th>Cantidad</th>
-                        <th>P.Unitario</th>
-                        <th>Total</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <body>
-                    <tr>
-                        <td></td>
-                        <td>
-
-                            <input type="text" id="rubroarticulo" maxlength="8">
-                            <button value="Buscar" title="Busca Artículo" class="button" id="buscar">buscar</button>
-
-                        </td>
-                        <td></td>
-                        <td>
-                            <input type="text" id="cantidad" maxlength="7">
-                        </td>
-                        <td>
-                            <input type="text" id="importe" maxlength="7">
-                        </td>
-                        <td></td>
+                <table ng-table="articulosTable" class="table" show-filter="false">
+                    <tr ng-repeat="articulo in $data">
+                        <td title="'Fecha'">{{articulo.fecha}}</td>
+                        <td title="'Código de Artículo'">{{articulo.codigo}}</td>
+                        <td title="'Descripción'">{{articulo.descripcion}}</td>
+                        <td title="'Cantidad'">{{articulo.cantidad}}</td>
+                        <td title="'P.Unitario'">{{articulo.precio}}</td>
+                        <td title="'Total'">{{articulo.total}}</td>
                         <td width="65px">
-                            <button value="Editar" title="Editar" class="button" id="accione">Edi</button>
+                            <button value="Editar" title="Editar" class="button">Edi</button>
                             <span></span>
-                            <button value="Borrar" title="Borrar" class="button" id="accionb">Bor</button>
-
+                            <button value="Borrar" title="Borrar" class="button">Bor</button>
                         </td>
                     </tr>
-                    </body>
+                    <tr>
+                        <td><input type="date" ng-model="nuevoArticulo.fecha" placeholder="dd-MM-yyyy"/></td>
+                        <td>
+                            <input type="text" maxlength="8" ng-model="nuevoArticulo.articulo">
+                            <button value="Buscar" title="Busca Artículo" class="button">buscar</button>
+                        </td>
+                        <td></td>
+                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.cantidad"></td>
+                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.precio"></td>
+                        <td></td>
+                        <td><button value="Guardar" title="Guardar" class="button" ng-click="guardarArticulo()">Gua</button></td>
+                    </tr>
                 </table>
             </div>
             <div class="encabezado4">

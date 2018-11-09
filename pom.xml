@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sistemas.turnos</groupId>
-    <artifactId>turnos-api</artifactId>
+    <groupId>com.sistemas.facturacion</groupId>
+    <artifactId>facturacion-api</artifactId>
     <version>0.0.1</version>
     <packaging>war</packaging>
 
-    <name>turnos-api</name>
+    <name>facturacion-api</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
