@@ -10,6 +10,7 @@
             $scope.listaArticulos = [];
             $scope.listaSindicatos = [];
             $scope.listaAfiliados = [];
+            $scope.listaStock = [];
 
             $scope.factura.fecha = new Date();
             $scope.factura.nroComprobante = '00000047';
@@ -44,16 +45,24 @@
                 {sindicato:'3',ioma:'IOMA', barra:'BARRA', apeYnom:'Carla Agno', familia:'FAMI', dni:'30486487', bloqueo:'bloq', fechaBaja:'1/1/1'}
             ];
             $scope.afiliadosTable = new NgTableParams({}, { dataset: $scope.listaAfiliados});
+            $scope.listaStock = [
+                {codigo:'1',nombre:'Rueda'},
+                {codigo:'2',nombre:'Volante'},
+                {codigo:'3',nombre:'Ventana'}
+            ];
+            $scope.stockTable = new NgTableParams({}, { dataset: $scope.listaStock});
 
 
 
 
             var modalSindicato = document.getElementById('modalSindicato');
             var modalAfiliado = document.getElementById('modalAfiliado');
+            var modalStock = document.getElementById('modalStock');
             var span = document.getElementsByClassName("close")[0];
             span.onclick = function() {
                 modalSindicato.style.display = "none";
                 modalAfiliado.style.display = "none";
+                modalStock.style.display = "none";
             }
             window.onclick = function(event) {
                 if (event.target == modalSindicato) {
@@ -62,6 +71,9 @@
                 if (event.target == modalAfiliado) {
                     modalAfiliado.style.display = "none";
                 }
+                if (event.target == modalStock) {
+                    modalStock.style.display = "none";
+                }
             }
             $scope.buscarSindicatoModal = function() {
                 modalSindicato.style.display = "block";
@@ -69,9 +81,16 @@
             $scope.buscarAfiliadoModal = function() {
                 modalAfiliado.style.display = "block";
             }
+            $scope.buscarStockModal = function() {
+                modalStock.style.display = "block";
+            }
 
 
-
+            function formatearFecha(fecha) {
+                var dia = ("0" + fecha.getDate()).slice(-2);
+                var mes = ("0" + (fecha.getMonth() + 1)).slice(-2);
+                return (dia)+"/"+(mes)+"/"+ fecha.getFullYear();
+            }
 
 //            $http({method: 'GET',url: facturaUrl + 'obtenerInformacionCentro'}).then(
 //                function successCallback(response) {
@@ -84,6 +103,7 @@
             function limpiarNuevoArticulo () {
                 $scope.nuevoArticulo.fecha = new Date();
                 $scope.nuevoArticulo.codigo = "";
+                $scope.nuevoArticulo.descripcion = "";
                 $scope.nuevoArticulo.cantidad = "";
                 $scope.nuevoArticulo.precio = "";
             };
@@ -91,9 +111,9 @@
             var articuloId = 0;
             $scope.guardarArticulo = function () {
                 var nuevo = {
-                    fecha:$scope.nuevoArticulo.fecha,
+                    fecha:formatearFecha($scope.nuevoArticulo.fecha),
                     codigo:$scope.nuevoArticulo.codigo,
-                    descripcion:'XXX',
+                    descripcion:$scope.nuevoArticulo.descripcion,
                     cantidad:$scope.nuevoArticulo.cantidad,
                     precio:$scope.nuevoArticulo.precio,
                     total:'YYY',
@@ -152,9 +172,16 @@
                 modalAfiliado.style.display = "none";
             };
 
+            $scope.seleccionStock = function(codigo, nombre) {
+                $scope.nuevoArticulo.codigo = codigo;
+                $scope.nuevoArticulo.descripcion = nombre;
+                modalStock.style.display = "none";
+            };
+
+
 
             $scope.enviar = function () {
-                console.log($scope.factura.fecha);
+                console.log(formatearFecha($scope.factura.fecha));
                 console.log($scope.factura.tipoComprobante);
                 console.log($scope.factura.puntoVenta);
                 console.log($scope.factura.nroComprobante);

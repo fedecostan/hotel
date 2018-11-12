@@ -30,7 +30,7 @@
             <div class="encabezado1">
                 <div class="fechade">
                     <label>Fecha:</label>
-                    <input type="date" ng-model="factura.fecha" placeholder="dd-MM-yyyy"/>
+                    <input type="date" ng-model="factura.fecha"/>
                 </div>
                 <div class="tipocomprob">
                     <select class="tipocomprobsele" ng-model="factura.tipoComprobante">
@@ -151,15 +151,30 @@
                         <td><input type="date" ng-model="nuevoArticulo.fecha" placeholder="dd-MM-yyyy"/></td>
                         <td>
                             <input type="text" maxlength="8" ng-model="nuevoArticulo.codigo">
-                            <button value="Buscar" title="Busca Artículo" class="button">buscar</button>
+                            <button value="Buscar" title="Busca Artículo" class="button" ng-click="buscarStockModal()">buscar</button>
                         </td>
-                        <td></td>
+                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.descripcion" ng-disabled="true"></td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.cantidad"></td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.precio"></td>
                         <td></td>
                         <td><button value="Guardar" title="Guardar" class="button" ng-click="guardarArticulo()">Gua</button></td>
                     </tr>
                 </table>
+                <!--MODAL STOCK-->
+                <div id="modalStock" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <table ng-table="stockTable" class="table" show-filter="true">
+                            <tr ng-repeat="stock in $data">
+                                <td title="'Código'" filter="{ codigo: 'text'}" sorteable="'codigo'">{{stock.codigo}}</td>
+                                <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{stock.nombre}}</td>
+                                <td width="65px">
+                                    <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionStock(stock.codigo, stock.nombre)">Este!</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="encabezado4">
                 <div class="form6">
