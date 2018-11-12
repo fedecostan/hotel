@@ -8,6 +8,8 @@
             $scope.factura = [];
             $scope.nuevoArticulo = [];
             $scope.listaArticulos = [];
+            $scope.listaSindicatos = [];
+            $scope.listaAfiliados = [];
 
             $scope.factura.fecha = new Date();
             $scope.factura.nroComprobante = '00000047';
@@ -30,6 +32,45 @@
                 {value:'333',name:'3333 VENTA'}
             ];
             $scope.factura.listaPrecio = 'C';
+            $scope.listaSindicatos = [
+                {codigo:'1',nombre:'Sindicato 1', cuit:'111'},
+                {codigo:'2',nombre:'Sindicato 2', cuit:'222'},
+                {codigo:'3',nombre:'Sindicato 3', cuit:'333'}
+            ];
+            $scope.sindicatosTable = new NgTableParams({}, { dataset: $scope.listaSindicatos});
+            $scope.listaAfiliados = [
+                {sindicato:'1',ioma:'IOMA', barra:'BARRA', apeYnom:'Fede Cos', familia:'FAMI', dni:'38157990', bloqueo:'bloq', fechaBaja:'1/1/1'},
+                {sindicato:'2',ioma:'IOMA', barra:'BARRA', apeYnom:'Elisa Car', familia:'FAMI', dni:'15648687', bloqueo:'bloq', fechaBaja:'1/1/1'},
+                {sindicato:'3',ioma:'IOMA', barra:'BARRA', apeYnom:'Carla Agno', familia:'FAMI', dni:'30486487', bloqueo:'bloq', fechaBaja:'1/1/1'}
+            ];
+            $scope.afiliadosTable = new NgTableParams({}, { dataset: $scope.listaAfiliados});
+
+
+
+
+            var modalSindicato = document.getElementById('modalSindicato');
+            var modalAfiliado = document.getElementById('modalAfiliado');
+            var span = document.getElementsByClassName("close")[0];
+            span.onclick = function() {
+                modalSindicato.style.display = "none";
+                modalAfiliado.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modalSindicato) {
+                    modalSindicato.style.display = "none";
+                }
+                if (event.target == modalAfiliado) {
+                    modalAfiliado.style.display = "none";
+                }
+            }
+            $scope.buscarSindicatoModal = function() {
+                modalSindicato.style.display = "block";
+            }
+            $scope.buscarAfiliadoModal = function() {
+                modalAfiliado.style.display = "block";
+            }
+
+
 
 
 //            $http({method: 'GET',url: facturaUrl + 'obtenerInformacionCentro'}).then(
@@ -95,6 +136,20 @@
                 $scope.nuevoArticulo.codigo = articuloAEditar.codigo;
                 $scope.nuevoArticulo.cantidad = articuloAEditar.cantidad;
                 $scope.nuevoArticulo.precio = articuloAEditar.precio;
+            };
+
+            $scope.seleccionSindicato = function(codigo, nombre, cuit) {
+                $scope.factura.sindicato = codigo;
+                $scope.sindicatoNombre = nombre;
+                $scope.sindicatoCuit = cuit;
+                modalSindicato.style.display = "none";
+            };
+
+            $scope.seleccionAfiliado = function(sindicato, nombre, dni) {
+                $scope.factura.afiliado = sindicato;
+                $scope.afiliadoNombre = nombre;
+                $scope.afiliadoDni = dni;
+                modalAfiliado.style.display = "none";
             };
 
 

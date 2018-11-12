@@ -47,50 +47,88 @@
                 </div>
             </div>
             <div class="encabezado2">
-                <form action="" class="form">
-                    <div class="form1">
-                        <div class="form1-form1">
-                            <label class="form-label">Sindicato:</label>
-                            <input type="text" maxlength="3" class="form-input4" ng-model="factura.sindicato">
-                            <button title="Busca Sindicato" class="button">BUSCAR</button>
-                            <label class="form-label">(muestro nombre)</label>
-                            <label class="form-label">(muestro cuit)</label>
-                        </div>
-                        <div class="form1-form2">
-                            <label class="form-label">Afiliado:</label>
-                            <input type="text" maxlength="11" class="form-input2" ng-model="factura.afiliado">
-                            <button title="Busca Afiliado" class="button">BUSCAR</button>
-                            <label class="form-label">(muestro apyno)</label>
-                            <label class="form-label">(muestro cuil/nro.documento)</label>
-                        </div>
+                <div class="form1">
+                    <div class="form1-form1">
+                        <label class="form-label">Sindicato:</label>
+                        <input type="text" maxlength="3" class="form-input4" ng-model="factura.sindicato">
+                        <button title="Busca Sindicato" class="button" ng-click="buscarSindicatoModal()">BUSCAR</button>
+                        <label class="form-label">{{sindicatoNombre}}</label>
+                        <label class="form-label">{{sindicatoCuit}}</label>
                     </div>
-                    <div class="form2">
-                        <select class="sele11" ng-model="factura.situacionIVA">
-                            <option value="" disabled selected> Situaciones de IVA</option>
-                            <option ng-repeat="situacion in situacionesIva"
-                                    value="{{situacion.value}}">{{situacion.name}}</option>
-                        </select>
 
-                        <select class="sele11" ng-model="factura.condicionVenta">
-                            <option value="" disabled selected> Condición de Venta</option>
-                            <option ng-repeat="condicion in condicionesVenta"
-                                     value="{{condicion.value}}">{{condicion.name}}</option>
-                        </select>
+                    <!--MODAL SINDICATO-->
+                    <div id="modalSindicato" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <table ng-table="sindicatosTable" class="table" show-filter="true">
+                                <tr ng-repeat="sindicato in $data">
+                                    <td title="'Código'" filter="{ codigo: 'text'}" sorteable="'codigo'">{{sindicato.codigo}}</td>
+                                    <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{sindicato.nombre}}</td>
+                                    <td width="65px">
+                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionSindicato(sindicato.codigo, sindicato.nombre, sindicato.cuit)">Este!</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
 
+                    <div class="form1-form2">
+                        <label class="form-label">Afiliado:</label>
+                        <input type="text" maxlength="11" class="form-input2" ng-model="factura.afiliado">
+                        <button title="Busca Afiliado" class="button" ng-click="buscarAfiliadoModal()">BUSCAR</button>
+                        <label class="form-label">{{afiliadoNombre}}</label>
+                        <label class="form-label">{{afiliadoDni}}</label>
                     </div>
-                    <div class="form3">
-                        <label class="form-label">Bonificación %</label>
-                        <input type="text" maxlength="5" class="form-input3" ng-model="factura.bonificacion">
+
+                    <!--MODAL AFILIADO-->
+                    <div id="modalAfiliado" class="modal">
+                        <div class="modal-content">
+                            <span class="close">&times;</span>
+                            <table ng-table="afiliadosTable" class="table" show-filter="true">
+                                <tr ng-repeat="afiliado in $data">
+                                    <td title="'Sindicato'" filter="{ sindicato: 'text'}" sorteable="'sindicato'">{{afiliado.sindicato}}</td>
+                                    <td title="'Nro IOMA'" filter="{ ioma: 'text'}" sorteable="'ioma'">{{afiliado.ioma}}</td>
+                                    <td title="'Barra'" filter="{ barra: 'text'}" sorteable="'barra'">{{afiliado.barra}}</td>
+                                    <td title="'Apellido y Nombre'" filter="{ apeYnom: 'text'}" sorteable="'apeYnom'">{{afiliado.apeYnom}}</td>
+                                    <td title="'Cód. Familia'" filter="{ familia: 'text'}" sorteable="'familia'">{{afiliado.familia}}</td>
+                                    <td title="'Nro. Documento'" filter="{ dni: 'text'}" sorteable="'dni'">{{afiliado.dni}}</td>
+                                    <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueo}}</td>
+                                    <td title="'Fecha Baja'" filter="{ fechaBaja: 'text'}" sorteable="'fechaBaja'">{{afiliado.fechaBaja}}</td>
+                                    <td width="65px">
+                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionAfiliado(afiliado.sindicato, afiliado.apeYnom, afiliado.dni)">Este!</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                    <div class="form4">
-                        <label class="form-label">Lista A</label>
-                        <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="A">
-                        <label class="form-label">Lista B</label>
-                        <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="B">
-                        <label class="form-label">Lista C</label>
-                        <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="C" ng-checked="true">
-                    </div>
-                </form>
+
+                </div>
+                <div class="form2">
+                    <select class="sele11" ng-model="factura.situacionIVA">
+                        <option value="" disabled selected> Situaciones de IVA</option>
+                        <option ng-repeat="situacion in situacionesIva"
+                                value="{{situacion.value}}">{{situacion.name}}</option>
+                    </select>
+
+                    <select class="sele11" ng-model="factura.condicionVenta">
+                        <option value="" disabled selected> Condición de Venta</option>
+                        <option ng-repeat="condicion in condicionesVenta"
+                                 value="{{condicion.value}}">{{condicion.name}}</option>
+                    </select>
+
+                </div>
+                <div class="form3">
+                    <label class="form-label">Bonificación %</label>
+                    <input type="text" maxlength="5" class="form-input3" ng-model="factura.bonificacion">
+                </div>
+                <div class="form4">
+                    <label class="form-label">Lista A</label>
+                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="A">
+                    <label class="form-label">Lista B</label>
+                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="B">
+                    <label class="form-label">Lista C</label>
+                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="C" ng-checked="true">
+                </div>
             </div>
             <div class="encabezado3">
                 <div class=""></div>
