@@ -104,15 +104,15 @@
                         <td title="'P.Unitario'">{{articulo.precio}}</td>
                         <td title="'Total'">{{articulo.total}}</td>
                         <td width="65px">
-                            <button value="Editar" title="Editar" class="button">Edi</button>
+                            <button value="Editar" title="Editar" class="button" ng-click="editarArticulo(articulo.id)">Edi</button>
                             <span></span>
-                            <button value="Borrar" title="Borrar" class="button">Bor</button>
+                            <button value="Borrar" title="Borrar" class="button" ng-click="borrarArticulo(articulo.id)">Bor</button>
                         </td>
                     </tr>
                     <tr>
                         <td><input type="date" ng-model="nuevoArticulo.fecha" placeholder="dd-MM-yyyy"/></td>
                         <td>
-                            <input type="text" maxlength="8" ng-model="nuevoArticulo.articulo">
+                            <input type="text" maxlength="8" ng-model="nuevoArticulo.codigo">
                             <button value="Buscar" title="Busca Artículo" class="button">buscar</button>
                         </td>
                         <td></td>

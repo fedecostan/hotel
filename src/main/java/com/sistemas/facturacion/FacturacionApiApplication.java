@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = "com.sistemas.facturacion")
 @SpringBootApplication
-public class TurnosApiApplication {
+public class FacturacionApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TurnosApiApplication.class, args);
+        SpringApplication.run(FacturacionApiApplication.class, args);
     }
 }

@@ -39,18 +39,62 @@
 //                }, function errorCallback(response) {
 //            });
 
+            limpiarNuevoArticulo();
+            function limpiarNuevoArticulo () {
+                $scope.nuevoArticulo.fecha = new Date();
+                $scope.nuevoArticulo.codigo = "";
+                $scope.nuevoArticulo.cantidad = "";
+                $scope.nuevoArticulo.precio = "";
+            };
 
+            var articuloId = 0;
             $scope.guardarArticulo = function () {
                 var nuevo = {
                     fecha:$scope.nuevoArticulo.fecha,
-                    codigo:$scope.nuevoArticulo.articulo,
+                    codigo:$scope.nuevoArticulo.codigo,
                     descripcion:'XXX',
                     cantidad:$scope.nuevoArticulo.cantidad,
                     precio:$scope.nuevoArticulo.precio,
-                    total:'YYY'
+                    total:'YYY',
+                    id: articuloId
                 }
+                articuloId++;
                 $scope.listaArticulos.push(nuevo);
+                limpiarNuevoArticulo();
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+            };
+
+            $scope.borrarArticulo = function (id) {
+                var nuevoArray = [];
+                var tamanioLista = $scope.listaArticulos.length;
+                for (var i = 0; i < tamanioLista; i++){
+                    var articulo = $scope.listaArticulos.shift();
+                    if (articulo.id != id) {
+                        nuevoArray.push(articulo);
+                    }
+                }
+                $scope.listaArticulos = nuevoArray;
+                $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+            };
+
+            $scope.editarArticulo = function (id) {
+                var nuevoArray = [];
+                var articuloAEditar;
+                var tamanioLista = $scope.listaArticulos.length;
+                for (var i = 0; i < tamanioLista; i++){
+                    var articulo = $scope.listaArticulos.shift();
+                    if (articulo.id != id) {
+                        nuevoArray.push(articulo);
+                    } else {
+                        articuloAEditar = articulo;
+                    }
+                }
+                $scope.listaArticulos = nuevoArray;
+                $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                $scope.nuevoArticulo.fecha = articuloAEditar.fecha;
+                $scope.nuevoArticulo.codigo = articuloAEditar.codigo;
+                $scope.nuevoArticulo.cantidad = articuloAEditar.cantidad;
+                $scope.nuevoArticulo.precio = articuloAEditar.precio;
             };
 
 
