@@ -4,12 +4,11 @@
         function($scope, $http, $window, NgTableParams) {
             var self = this;
             var facturaUrl = '../facturaController/';
+            var sindicatoSeleccionado = "0";
 
             $scope.factura = [];
             $scope.nuevoArticulo = [];
             $scope.listaArticulos = [];
-            $scope.listaSindicatos = [];
-            $scope.listaAfiliados = [];
             $scope.listaStock = [];
 
             $scope.factura.fecha = new Date();
@@ -17,11 +16,6 @@
 
             $scope.direccion = 'Calle 1589 - CP AA1111 - CABA';
             $scope.telefono = 'Tel. 236-1258-1245';
-            $scope.comprobantes = [
-                {value:'FC',name:'Factura C'},
-                {value:'NC',name:'Nota de Credito C'},
-                {value:'DC',name:'Nota de Debito C'}
-            ];
             $scope.situacionesIva = [
                 {value:'111',name:'1111 IVA'},
                 {value:'222',name:'2222 IVA'},
@@ -33,18 +27,6 @@
                 {value:'333',name:'3333 VENTA'}
             ];
             $scope.factura.listaPrecio = 'C';
-            $scope.listaSindicatos = [
-                {codigo:'1',nombre:'Sindicato 1', cuit:'111'},
-                {codigo:'2',nombre:'Sindicato 2', cuit:'222'},
-                {codigo:'3',nombre:'Sindicato 3', cuit:'333'}
-            ];
-            $scope.sindicatosTable = new NgTableParams({}, { dataset: $scope.listaSindicatos});
-            $scope.listaAfiliados = [
-                {sindicato:'1',ioma:'IOMA', barra:'BARRA', apeYnom:'Fede Cos', familia:'FAMI', dni:'38157990', bloqueo:'bloq', fechaBaja:'1/1/1'},
-                {sindicato:'2',ioma:'IOMA', barra:'BARRA', apeYnom:'Elisa Car', familia:'FAMI', dni:'15648687', bloqueo:'bloq', fechaBaja:'1/1/1'},
-                {sindicato:'3',ioma:'IOMA', barra:'BARRA', apeYnom:'Carla Agno', familia:'FAMI', dni:'30486487', bloqueo:'bloq', fechaBaja:'1/1/1'}
-            ];
-            $scope.afiliadosTable = new NgTableParams({}, { dataset: $scope.listaAfiliados});
             $scope.listaStock = [
                 {codigo:'1',nombre:'Rueda'},
                 {codigo:'2',nombre:'Volante'},
@@ -59,7 +41,7 @@
             var modalAfiliado = document.getElementById('modalAfiliado');
             var modalStock = document.getElementById('modalStock');
             var span = document.getElementsByClassName("close")[0];
-            span.onclick = function() {
+            $scope.cerrarModal = function() {
                 modalSindicato.style.display = "none";
                 modalAfiliado.style.display = "none";
                 modalStock.style.display = "none";
@@ -76,15 +58,33 @@
                 }
             }
             $scope.buscarSindicatoModal = function() {
-                modalSindicato.style.display = "block";
+                $http({method: 'GET',url: facturaUrl + 'cargarSindicatos'}).then(
+                    function successCallback(response) {
+                        $scope.sindicatosTable = new NgTableParams({}, { dataset: response.data});
+                        modalSindicato.style.display = "block";
+                    }, function errorCallback(response) {
+                });
             }
             $scope.buscarAfiliadoModal = function() {
-                modalAfiliado.style.display = "block";
+                if (sindicatoSeleccionado === "0") {
+                    $http({method: 'GET',url: facturaUrl + 'cargarAfiliados'}).then(
+                        function successCallback(response) {
+                            $scope.afiliadosTable = new NgTableParams({}, { dataset: response.data});
+                            modalAfiliado.style.display = "block";
+                        }, function errorCallback(response) {
+                    });
+                } else {
+                    $http({method: 'GET',url: facturaUrl + 'cargarAfiliadosPorSindicato?sindicato=' + sindicatoSeleccionado}).then(
+                        function successCallback(response) {
+                            $scope.afiliadosTable = new NgTableParams({}, { dataset: response.data});
+                            modalAfiliado.style.display = "block";
+                        }, function errorCallback(response) {
+                    });
+                }
             }
             $scope.buscarStockModal = function() {
                 modalStock.style.display = "block";
             }
-
 
             function formatearFecha(fecha) {
                 var dia = ("0" + fecha.getDate()).slice(-2);
@@ -92,20 +92,23 @@
                 return (dia)+"/"+(mes)+"/"+ fecha.getFullYear();
             }
 
-//            $http({method: 'GET',url: facturaUrl + 'obtenerInformacionCentro'}).then(
-//                function successCallback(response) {
-//                    $scope.direccion = 'Calle 1589 - CP AA1111 - CABA';
-//                    $scope.telefono = 'Tel. 236-1258-1245';
-//                }, function errorCallback(response) {
-//            });
+            $http({method: 'GET',url: facturaUrl + 'inicializarData'}).then(
+                function successCallback(response) {
+                    $http({method: 'GET',url: facturaUrl + 'cargarInformacion'}).then(
+                        function successCallback(response) {
+                            $scope.comprobantes = response.data.tipoComprobanteList;
+                        }, function errorCallback(response) {
+                    });
+                }, function errorCallback(response) {
+            });
 
             limpiarNuevoArticulo();
             function limpiarNuevoArticulo () {
                 $scope.nuevoArticulo.fecha = new Date();
-                $scope.nuevoArticulo.codigo = "";
-                $scope.nuevoArticulo.descripcion = "";
-                $scope.nuevoArticulo.cantidad = "";
-                $scope.nuevoArticulo.precio = "";
+                $scope.nuevoArticulo.codigo = null;
+                $scope.nuevoArticulo.descripcion = null;
+                $scope.nuevoArticulo.cantidad = null;
+                $scope.nuevoArticulo.precio = null;
             };
 
             var articuloId = 0;
@@ -159,11 +162,23 @@
             };
 
             $scope.seleccionSindicato = function(codigo, nombre, cuit) {
+                sindicatoSeleccionado = codigo;
                 $scope.factura.sindicato = codigo;
                 $scope.sindicatoNombre = nombre;
                 $scope.sindicatoCuit = cuit;
+                $scope.factura.afiliado = null;
+                $scope.afiliadoNombre = null;
+                $scope.afiliadoDni = null;
                 modalSindicato.style.display = "none";
             };
+
+            $scope.deseleccionarSindicato = function(){
+                sindicatoSeleccionado = "0";
+                $scope.factura.sindicato = null;
+                $scope.sindicatoNombre = null;
+                $scope.sindicatoCuit = null;
+                modalSindicato.style.display = "none";
+            }
 
             $scope.seleccionAfiliado = function(sindicato, nombre, dni) {
                 $scope.factura.afiliado = sindicato;
@@ -181,16 +196,16 @@
 
 
             $scope.enviar = function () {
-                console.log(formatearFecha($scope.factura.fecha));
-                console.log($scope.factura.tipoComprobante);
-                console.log($scope.factura.puntoVenta);
-                console.log($scope.factura.nroComprobante);
-                console.log($scope.factura.sindicato);
-                console.log($scope.factura.afiliado);
-                console.log($scope.factura.situacionIVA);
-                console.log($scope.factura.condicionVenta);
-                console.log($scope.factura.bonificacion);
-                console.log($scope.factura.listaPrecio);
+                console.log("Fecha: "+formatearFecha($scope.factura.fecha));
+                console.log("Tipo Comprobante: "+$scope.factura.tipoComprobante);
+                console.log("Punto de Venta: "+$scope.factura.puntoVenta);
+                console.log("Numero Comprobante: "+$scope.factura.nroComprobante);
+                console.log("Sindicato: "+$scope.factura.sindicato);
+                console.log("Afiliado: "+$scope.factura.afiliado);
+                console.log("Situacion IVA: "+$scope.factura.situacionIVA);
+                console.log("CondicionVenta: "+$scope.factura.condicionVenta);
+                console.log("Bonificacion: "+$scope.factura.bonificacion);
+                console.log("Lista Precio: "+$scope.factura.listaPrecio);
             }
         })
 }());

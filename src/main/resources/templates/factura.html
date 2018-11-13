@@ -36,7 +36,7 @@
                     <select class="tipocomprobsele" ng-model="factura.tipoComprobante">
                         <option value="" disabled selected>Tipo Comprobante</option>
                         <option ng-repeat="comprobante in comprobantes"
-                                value="{{comprobante.value}}">{{comprobante.name}}</option>
+                                value="{{codigo.value}}">{{comprobante.descripcion}}</option>
                     </select>
                 </div>
                 <div class="puntode">
@@ -59,7 +59,7 @@
                     <!--MODAL SINDICATO-->
                     <div id="modalSindicato" class="modal">
                         <div class="modal-content">
-                            <span class="close">&times;</span>
+                            <span class="close" ng-click="cerrarModal()">&times;</span>
                             <table ng-table="sindicatosTable" class="table" show-filter="true">
                                 <tr ng-repeat="sindicato in $data">
                                     <td title="'Código'" filter="{ codigo: 'text'}" sorteable="'codigo'">{{sindicato.codigo}}</td>
@@ -69,6 +69,7 @@
                                     </td>
                                 </tr>
                             </table>
+                            <button title="Limpiar" class="button" ng-click="deseleccionarSindicato()">LIMPIAR</button>
                         </div>
                     </div>
 
@@ -83,13 +84,13 @@
                     <!--MODAL AFILIADO-->
                     <div id="modalAfiliado" class="modal">
                         <div class="modal-content">
-                            <span class="close">&times;</span>
+                            <span class="close" ng-click="cerrarModal()">&times;</span>
                             <table ng-table="afiliadosTable" class="table" show-filter="true">
                                 <tr ng-repeat="afiliado in $data">
                                     <td title="'Sindicato'" filter="{ sindicato: 'text'}" sorteable="'sindicato'">{{afiliado.sindicato}}</td>
                                     <td title="'Nro IOMA'" filter="{ ioma: 'text'}" sorteable="'ioma'">{{afiliado.ioma}}</td>
                                     <td title="'Barra'" filter="{ barra: 'text'}" sorteable="'barra'">{{afiliado.barra}}</td>
-                                    <td title="'Apellido y Nombre'" filter="{ apeYnom: 'text'}" sorteable="'apeYnom'">{{afiliado.apeYnom}}</td>
+                                    <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{afiliado.nombre}}</td>
                                     <td title="'Cód. Familia'" filter="{ familia: 'text'}" sorteable="'familia'">{{afiliado.familia}}</td>
                                     <td title="'Nro. Documento'" filter="{ dni: 'text'}" sorteable="'dni'">{{afiliado.dni}}</td>
                                     <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueo}}</td>
@@ -163,7 +164,7 @@
                 <!--MODAL STOCK-->
                 <div id="modalStock" class="modal">
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <span class="close" ng-click="cerrarModal()">&times;</span>
                         <table ng-table="stockTable" class="table" show-filter="true">
                             <tr ng-repeat="stock in $data">
                                 <td title="'Código'" filter="{ codigo: 'text'}" sorteable="'codigo'">{{stock.codigo}}</td>
