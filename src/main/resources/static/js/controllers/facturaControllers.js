@@ -9,7 +9,7 @@
             $scope.factura = [];
             $scope.nuevoArticulo = [];
             $scope.listaArticulos = [];
-            $scope.listaStock = [];
+            $scope.listaProductos = [];
 
             $scope.factura.fecha = new Date();
             $scope.factura.nroComprobante = '00000047';
@@ -18,24 +18,14 @@
             $scope.telefono = 'Tel. 236-1258-1245';
             $scope.factura.listaPrecio = 'C';
 
-            $scope.listaStock = [
-                {codigo:'1',nombre:'Rueda'},
-                {codigo:'2',nombre:'Volante'},
-                {codigo:'3',nombre:'Ventana'}
-            ];
-            $scope.stockTable = new NgTableParams({}, { dataset: $scope.listaStock});
-
-
-
-
             var modalSindicato = document.getElementById('modalSindicato');
             var modalAfiliado = document.getElementById('modalAfiliado');
-            var modalStock = document.getElementById('modalStock');
+            var modalProducto = document.getElementById('modalProducto');
             var span = document.getElementsByClassName("close")[0];
             $scope.cerrarModal = function() {
                 modalSindicato.style.display = "none";
                 modalAfiliado.style.display = "none";
-                modalStock.style.display = "none";
+                modalProducto.style.display = "none";
             };
             window.onclick = function(event) {
                 if (event.target == modalSindicato) {
@@ -44,8 +34,8 @@
                 if (event.target == modalAfiliado) {
                     modalAfiliado.style.display = "none";
                 }
-                if (event.target == modalStock) {
-                    modalStock.style.display = "none";
+                if (event.target == modalProducto) {
+                    modalProducto.style.display = "none";
                 }
             };
             $scope.buscarSindicatoModal = function() {
@@ -105,8 +95,29 @@
                 }
             };
 
-            $scope.buscarStockModal = function() {
-                modalStock.style.display = "block";
+            $scope.buscarProductoModal = function() {
+                $http({method: 'GET',url: facturaUrl + 'cargarProductos'}).then(
+                    function successCallback(response) {
+                        $scope.prodcutosTable = new NgTableParams({}, { dataset: response.data});
+                        modalProducto.style.display = "block";
+                    }, function errorCallback(response) {
+                });
+            };
+
+            $scope.buscarProductoInput = function() {
+                $http({method: 'GET',url: facturaUrl + 'cargarProductosPorId?id=' + $scope.nuevoArticulo.codigo}).then(
+                    function successCallback(response) {
+                        $scope.nuevoArticulo.descripcion = response.data.descripcion;
+                        $scope.nuevoArticulo.cantidad = 1;
+                        if ($scope.factura.listaPrecio === "A"){
+                            $scope.nuevoArticulo.precio = response.data.precioA;
+                        } else if ($scope.factura.listaPrecio === "B"){
+                            $scope.nuevoArticulo.precio = response.data.precioB;
+                        } else {
+                            $scope.nuevoArticulo.precio = response.data.precioC;
+                        }
+                    }, function errorCallback(response) {
+                });
             };
 
             function formatearFecha(fecha) {
@@ -215,13 +226,19 @@
                 modalAfiliado.style.display = "none";
             };
 
-            $scope.seleccionStock = function(codigo, nombre) {
+            $scope.seleccionProducto = function(codigo, descripcion, precioA, precioB, precioC) {
                 $scope.nuevoArticulo.codigo = codigo;
-                $scope.nuevoArticulo.descripcion = nombre;
-                modalStock.style.display = "none";
+                $scope.nuevoArticulo.descripcion = response.data.descripcion;
+                $scope.nuevoArticulo.cantidad = 1;
+                if ($scope.factura.listaPrecio === "A"){
+                    $scope.nuevoArticulo.precio = response.data.precioA;
+                } else if ($scope.factura.listaPrecio === "B"){
+                    $scope.nuevoArticulo.precio = response.data.precioB;
+                } else {
+                    $scope.nuevoArticulo.precio = response.data.precioC;
+                }
+                modalProducto.style.display = "none";
             };
-
-
 
             $scope.enviar = function () {
                 console.log("Fecha: "+formatearFecha($scope.factura.fecha));

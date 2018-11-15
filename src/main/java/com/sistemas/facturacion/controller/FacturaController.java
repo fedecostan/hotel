@@ -1,6 +1,7 @@
 package com.sistemas.facturacion.controller;
 
 import com.sistemas.facturacion.model.Afiliado;
+import com.sistemas.facturacion.model.Producto;
 import com.sistemas.facturacion.model.Sindicato;
 import com.sistemas.facturacion.service.*;
 import com.sistemas.facturacion.service.dto.InfoPantallaDTO;
@@ -27,6 +28,9 @@ public class FacturaController {
 
     @Autowired
     private CondicionVentaService condicionVentaService;
+
+    @Autowired
+    private ProductoService productoService;
 
     @RequestMapping(value = "/inicializarData", method = RequestMethod.GET)
     public void inicializar(){
@@ -77,6 +81,18 @@ public class FacturaController {
     public @ResponseBody
     Afiliado cargarAfiliadosPorSindicato(@RequestParam("id") Long id, @RequestParam("sindicato") String sindicato){
         return afiliadoService.obtenerPorIdYSindicato(id,sindicato);
+    }
+
+    @RequestMapping(value = "/cargarProductos", method = RequestMethod.GET)
+    public @ResponseBody
+    List<Producto> cargarProductos(){
+        return productoService.obtenerTodos();
+    }
+
+    @RequestMapping(value = "/cargarProductosPorId", method = RequestMethod.GET)
+    public @ResponseBody
+    Producto cargarProductosPorId(@RequestParam("id") Long id){
+        return productoService.obtenerPorId(id);
     }
 
 }

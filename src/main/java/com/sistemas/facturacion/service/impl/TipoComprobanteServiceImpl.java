@@ -27,6 +27,9 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
     @Autowired
     private CondicionVentaRepository condicionVentaRepository;
 
+    @Autowired
+    private ProductoRepository productoRepository;
+
     @Override
     public List<TipoComprobante> obtenerTodos() {
         return tipoComprobanteRepository.findAll();
@@ -122,5 +125,35 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
         condicionVentaList.add(condicionVenta2);
         condicionVentaList.add(condicionVenta3);
         condicionVentaRepository.saveAll(condicionVentaList);
+        Producto producto1 = new Producto();
+        producto1.setDescripcion("Producto 1");
+        producto1.setStock(5);
+        producto1.setPrecioA(1D);
+        producto1.setPrecioA(2D);
+        producto1.setPrecioA(3D);
+        Producto producto2 = new Producto();
+        producto2.setDescripcion("Producto 2");
+        producto2.setStock(4);
+        producto2.setPrecioA(11D);
+        producto2.setPrecioA(22D);
+        producto2.setPrecioA(33D);
+        Producto producto3 = new Producto();
+        producto3.setDescripcion("Producto 3");
+        producto3.setStock(2);
+        producto3.setPrecioA(111D);
+        producto3.setPrecioA(222D);
+        producto3.setPrecioA(333D);
+        Producto producto4 = new Producto();
+        producto4.setDescripcion("Producto 4");
+        producto4.setStock(0);
+        producto4.setPrecioA(4D);
+        producto4.setPrecioA(5D);
+        producto4.setPrecioA(6D);
+        List<Producto> productoList = new ArrayList<>();
+        productoList.add(producto1);
+        productoList.add(producto2);
+        productoList.add(producto3);
+        productoList.add(producto4);
+        productoRepository.saveAll(productoList);
     }
 }
