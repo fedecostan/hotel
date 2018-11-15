@@ -3,6 +3,7 @@ package com.sistemas.facturacion.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "PRODUCTO")
@@ -28,6 +29,12 @@ public class Producto {
 
     @Column(name = "PRECIO_C")
     private Double precioC;
+
+    @Column(name = "FECHA_DESDE")
+    private Date fechaDesde;
+
+    @Column(name = "FECHA_HASTA")
+    private Date fechaHasta;
 
     public Long getId() {
         return id;
@@ -75,5 +82,21 @@ public class Producto {
 
     public void setPrecioC(Double precioC) {
         this.precioC = precioC;
+    }
+
+    public Date getFechaDesde() {
+        return fechaDesde;
+    }
+
+    public void setFechaDesde(Date fechaDesde) {
+        this.fechaDesde = fechaDesde;
+    }
+
+    public Date getFechaHasta() {
+        return fechaHasta;
+    }
+
+    public void setFechaHasta(Date fechaHasta) {
+        this.fechaHasta = fechaHasta;
     }
 }

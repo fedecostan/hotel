@@ -15,13 +15,13 @@ public class ProductoServiceImpl implements ProductoService {
     private ProductoRepository productoRepository;
 
     @Override
-    public List<Producto> obtenerTodos() {
-        return productoRepository.findAll();
+    public List<Producto> obtenerTodos(String fecha) {
+        return productoRepository.findByFecha(fecha);
     }
 
     @Override
-    public Producto obtenerPorId(Long id) {
-        Producto producto = productoRepository.findOneById(id);
+    public Producto obtenerPorId(Long id, String fecha) {
+        Producto producto = productoRepository.findOneByIdAndFecha(id, fecha);
         if (producto == null){
             producto = new Producto();
             producto.setDescripcion("N/P");

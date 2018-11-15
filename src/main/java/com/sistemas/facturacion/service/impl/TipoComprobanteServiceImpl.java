@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -131,6 +132,7 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
         producto1.setPrecioA(1D);
         producto1.setPrecioA(2D);
         producto1.setPrecioA(3D);
+        producto1.setFechaDesde(new Date(1514764800000L)); //01/01/2018
         Producto producto2 = new Producto();
         producto2.setDescripcion("Producto 2");
         producto2.setStock(4);

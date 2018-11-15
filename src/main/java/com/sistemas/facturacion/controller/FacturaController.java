@@ -85,14 +85,14 @@ public class FacturaController {
 
     @RequestMapping(value = "/cargarProductos", method = RequestMethod.GET)
     public @ResponseBody
-    List<Producto> cargarProductos(){
-        return productoService.obtenerTodos();
+    List<Producto> cargarProductos(@RequestParam("fecha") String fecha){
+        return productoService.obtenerTodos(fecha);
     }
 
     @RequestMapping(value = "/cargarProductosPorId", method = RequestMethod.GET)
     public @ResponseBody
-    Producto cargarProductosPorId(@RequestParam("id") Long id){
-        return productoService.obtenerPorId(id);
+    Producto cargarProductosPorId(@RequestParam("id") Long id, @RequestParam("fecha") String fecha){
+        return productoService.obtenerPorId(id, fecha);
     }
 
 }
