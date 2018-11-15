@@ -4,7 +4,7 @@
         function($scope, $http, $window, NgTableParams) {
             var self = this;
             var facturaUrl = '../facturaController/';
-            var sindicatoSeleccionado = "0";
+            var sindicatoSeleccionado = null;
 
             $scope.factura = [];
             $scope.nuevoArticulo = [];
@@ -16,17 +16,8 @@
 
             $scope.direccion = 'Calle 1589 - CP AA1111 - CABA';
             $scope.telefono = 'Tel. 236-1258-1245';
-            $scope.situacionesIva = [
-                {value:'111',name:'1111 IVA'},
-                {value:'222',name:'2222 IVA'},
-                {value:'333',name:'3333 IVA'}
-            ];
-            $scope.condicionesVenta = [
-                {value:'111',name:'1111 VENTA'},
-                {value:'222',name:'2222 VENTA'},
-                {value:'333',name:'3333 VENTA'}
-            ];
             $scope.factura.listaPrecio = 'C';
+
             $scope.listaStock = [
                 {codigo:'1',nombre:'Rueda'},
                 {codigo:'2',nombre:'Volante'},
@@ -45,7 +36,7 @@
                 modalSindicato.style.display = "none";
                 modalAfiliado.style.display = "none";
                 modalStock.style.display = "none";
-            }
+            };
             window.onclick = function(event) {
                 if (event.target == modalSindicato) {
                     modalSindicato.style.display = "none";
@@ -56,7 +47,7 @@
                 if (event.target == modalStock) {
                     modalStock.style.display = "none";
                 }
-            }
+            };
             $scope.buscarSindicatoModal = function() {
                 $http({method: 'GET',url: facturaUrl + 'cargarSindicatos'}).then(
                     function successCallback(response) {
@@ -64,9 +55,22 @@
                         modalSindicato.style.display = "block";
                     }, function errorCallback(response) {
                 });
-            }
+            };
+            $scope.buscarSindicatoInput = function() {
+                $http({method: 'GET',url: facturaUrl + 'buscarSindicatoPorCodigo?codigo=' + $scope.factura.sindicato}).then(
+                    function successCallback(response) {
+                        sindicatoSeleccionado = response.data.codigo;
+                        $scope.sindicatoNombre = response.data.nombre;
+                        $scope.sindicatoCuit = response.data.cuit;
+                        $scope.factura.afiliado = null;
+                        $scope.afiliadoNombre = null;
+                        $scope.afiliadoDni = null;
+                    }, function errorCallback(response) {
+                });
+            };
+
             $scope.buscarAfiliadoModal = function() {
-                if (sindicatoSeleccionado === "0") {
+                if (sindicatoSeleccionado === null) {
                     $http({method: 'GET',url: facturaUrl + 'cargarAfiliados'}).then(
                         function successCallback(response) {
                             $scope.afiliadosTable = new NgTableParams({}, { dataset: response.data});
@@ -81,22 +85,43 @@
                         }, function errorCallback(response) {
                     });
                 }
-            }
+            };
+
+            $scope.buscarAfiliadoInput = function() {
+                if (sindicatoSeleccionado === null) {
+                    $http({method: 'GET',url: facturaUrl + 'buscarAfiliadoPorId?id=' + $scope.factura.afiliado}).then(
+                        function successCallback(response) {
+                            $scope.afiliadoNombre = response.data.nombre;
+                            $scope.afiliadoDni = response.data.dni;
+                        }, function errorCallback(response) {
+                    });
+                } else {
+                    $http({method: 'GET',url: facturaUrl + 'buscarAfiliadoPorIdYSindicato?id=' + $scope.factura.afiliado + "&sindicato=" + sindicatoSeleccionado}).then(
+                        function successCallback(response) {
+                            $scope.afiliadoNombre = response.data.nombre;
+                            $scope.afiliadoDni = response.data.dni;
+                        }, function errorCallback(response) {
+                    });
+                }
+            };
+
             $scope.buscarStockModal = function() {
                 modalStock.style.display = "block";
-            }
+            };
 
             function formatearFecha(fecha) {
                 var dia = ("0" + fecha.getDate()).slice(-2);
                 var mes = ("0" + (fecha.getMonth() + 1)).slice(-2);
                 return (dia)+"/"+(mes)+"/"+ fecha.getFullYear();
-            }
+            };
 
             $http({method: 'GET',url: facturaUrl + 'inicializarData'}).then(
                 function successCallback(response) {
                     $http({method: 'GET',url: facturaUrl + 'cargarInformacion'}).then(
                         function successCallback(response) {
                             $scope.comprobantes = response.data.tipoComprobanteList;
+                            $scope.situacionesIva = response.data.situacionIvaList;
+                            $scope.condicionesVenta = response.data.condicionVentaList;
                         }, function errorCallback(response) {
                     });
                 }, function errorCallback(response) {
@@ -173,15 +198,18 @@
             };
 
             $scope.deseleccionarSindicato = function(){
-                sindicatoSeleccionado = "0";
+                sindicatoSeleccionado = null;
                 $scope.factura.sindicato = null;
                 $scope.sindicatoNombre = null;
                 $scope.sindicatoCuit = null;
+                $scope.factura.afiliado = null;
+                $scope.afiliadoNombre = null;
+                $scope.afiliadoDni = null;
                 modalSindicato.style.display = "none";
-            }
+            };
 
-            $scope.seleccionAfiliado = function(sindicato, nombre, dni) {
-                $scope.factura.afiliado = sindicato;
+            $scope.seleccionAfiliado = function(id, nombre, dni) {
+                $scope.factura.afiliado = id;
                 $scope.afiliadoNombre = nombre;
                 $scope.afiliadoDni = dni;
                 modalAfiliado.style.display = "none";
@@ -203,9 +231,9 @@
                 console.log("Sindicato: "+$scope.factura.sindicato);
                 console.log("Afiliado: "+$scope.factura.afiliado);
                 console.log("Situacion IVA: "+$scope.factura.situacionIVA);
-                console.log("CondicionVenta: "+$scope.factura.condicionVenta);
+                console.log("Condicion de Venta: "+$scope.factura.condicionVenta);
                 console.log("Bonificacion: "+$scope.factura.bonificacion);
                 console.log("Lista Precio: "+$scope.factura.listaPrecio);
-            }
+            };
         })
 }());

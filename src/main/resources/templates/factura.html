@@ -36,7 +36,7 @@
                     <select class="tipocomprobsele" ng-model="factura.tipoComprobante">
                         <option value="" disabled selected>Tipo Comprobante</option>
                         <option ng-repeat="comprobante in comprobantes"
-                                value="{{codigo.value}}">{{comprobante.descripcion}}</option>
+                                value="{{comprobante.codigo}}">{{comprobante.descripcion}}</option>
                     </select>
                 </div>
                 <div class="puntode">
@@ -50,7 +50,7 @@
                 <div class="form1">
                     <div class="form1-form1">
                         <label class="form-label">Sindicato:</label>
-                        <input type="text" maxlength="3" class="form-input4" ng-model="factura.sindicato">
+                        <input type="text" maxlength="3" class="form-input4" ng-model="factura.sindicato" ng-change="buscarSindicatoInput()">
                         <button title="Busca Sindicato" class="button" ng-click="buscarSindicatoModal()">BUSCAR</button>
                         <label class="form-label">{{sindicatoNombre}}</label>
                         <label class="form-label">{{sindicatoCuit}}</label>
@@ -75,7 +75,7 @@
 
                     <div class="form1-form2">
                         <label class="form-label">Afiliado:</label>
-                        <input type="text" maxlength="11" class="form-input2" ng-model="factura.afiliado">
+                        <input type="text" maxlength="11" class="form-input2" ng-model="factura.afiliado" ng-change="buscarAfiliadoInput()">
                         <button title="Busca Afiliado" class="button" ng-click="buscarAfiliadoModal()">BUSCAR</button>
                         <label class="form-label">{{afiliadoNombre}}</label>
                         <label class="form-label">{{afiliadoDni}}</label>
@@ -96,7 +96,7 @@
                                     <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueo}}</td>
                                     <td title="'Fecha Baja'" filter="{ fechaBaja: 'text'}" sorteable="'fechaBaja'">{{afiliado.fechaBaja}}</td>
                                     <td width="65px">
-                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionAfiliado(afiliado.sindicato, afiliado.apeYnom, afiliado.dni)">Este!</button>
+                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionAfiliado(afiliado.id, afiliado.nombre, afiliado.dni)">Este!</button>
                                     </td>
                                 </tr>
                             </table>
@@ -108,19 +108,19 @@
                     <select class="sele11" ng-model="factura.situacionIVA">
                         <option value="" disabled selected> Situaciones de IVA</option>
                         <option ng-repeat="situacion in situacionesIva"
-                                value="{{situacion.value}}">{{situacion.name}}</option>
+                                value="{{situacion.codigoAfip}}">{{situacion.descripcion}}</option>
                     </select>
 
                     <select class="sele11" ng-model="factura.condicionVenta">
                         <option value="" disabled selected> Condición de Venta</option>
                         <option ng-repeat="condicion in condicionesVenta"
-                                 value="{{condicion.value}}">{{condicion.name}}</option>
+                                 value="{{condicion.codigoAfip}}">{{condicion.descripcion}}</option>
                     </select>
 
                 </div>
                 <div class="form3">
                     <label class="form-label">Bonificación %</label>
-                    <input type="text" maxlength="5" class="form-input3" ng-model="factura.bonificacion">
+                    <input type="number" min="0" max="100" class="form-input3" ng-model="factura.bonificacion">
                 </div>
                 <div class="form4">
                     <label class="form-label">Lista A</label>

@@ -24,4 +24,26 @@ public class AfiliadoServiceImpl implements AfiliadoService {
         return afiliadoRepository.findBySindicato(sindicato);
     }
 
+    @Override
+    public Afiliado obtenerPorId(Long id) {
+        Afiliado afiliado = afiliadoRepository.findOne(id);
+        if (afiliado == null){
+            afiliado = new Afiliado();
+            afiliado.setNombre("N/A");
+            afiliado.setDni("");
+        }
+        return afiliado;
+    }
+
+    @Override
+    public Afiliado obtenerPorIdYSindicato(Long id, String sindicato) {
+        Afiliado afiliado = afiliadoRepository.findOne(id);
+        if (afiliado == null || !afiliado.getSindicato().equals(sindicato)){
+            afiliado = new Afiliado();
+            afiliado.setNombre("N/A");
+            afiliado.setDni("");
+        }
+        return afiliado;
+    }
+
 }

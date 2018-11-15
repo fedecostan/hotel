@@ -9,4 +9,8 @@ public interface AfiliadoService {
     List<Afiliado> obtenerTodos();
 
     List<Afiliado> obtenerPorSindicato(String sindicato);
+
+    Afiliado obtenerPorId(Long id);
+
+    Afiliado obtenerPorIdYSindicato(Long id, String sindicato);
 }

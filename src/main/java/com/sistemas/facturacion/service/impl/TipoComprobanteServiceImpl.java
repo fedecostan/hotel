@@ -1,11 +1,7 @@
 package com.sistemas.facturacion.service.impl;
 
-import com.sistemas.facturacion.model.Afiliado;
-import com.sistemas.facturacion.model.Sindicato;
-import com.sistemas.facturacion.model.TipoComprobante;
-import com.sistemas.facturacion.repository.AfiliadoRepository;
-import com.sistemas.facturacion.repository.SindicatoRepository;
-import com.sistemas.facturacion.repository.TipoComprobanteRepository;
+import com.sistemas.facturacion.model.*;
+import com.sistemas.facturacion.repository.*;
 import com.sistemas.facturacion.service.TipoComprobanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +20,12 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
 
     @Autowired
     private AfiliadoRepository afiliadoRepository;
+
+    @Autowired
+    private SituacionIvaRepository situacionIvaRepository;
+
+    @Autowired
+    private CondicionVentaRepository condicionVentaRepository;
 
     @Override
     public List<TipoComprobante> obtenerTodos() {
@@ -92,5 +94,33 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
         afiliadoList.add(afiliado2);
         afiliadoList.add(afiliado3);
         afiliadoRepository.saveAll(afiliadoList);
+        SituacionIva situacionIva1 = new SituacionIva();
+        situacionIva1.setDescripcion("Situacion IVA 1");
+        situacionIva1.setCodigoAfip("1");
+        SituacionIva situacionIva2 = new SituacionIva();
+        situacionIva2.setDescripcion("Situacion IVA 2");
+        situacionIva2.setCodigoAfip("2");
+        SituacionIva situacionIva3 = new SituacionIva();
+        situacionIva3.setDescripcion("Situacion IVA 3");
+        situacionIva3.setCodigoAfip("3");
+        List<SituacionIva> situacionIvaList = new ArrayList<>();
+        situacionIvaList.add(situacionIva1);
+        situacionIvaList.add(situacionIva2);
+        situacionIvaList.add(situacionIva3);
+        situacionIvaRepository.saveAll(situacionIvaList);
+        CondicionVenta condicionVenta1 = new CondicionVenta();
+        condicionVenta1.setDescripcion("Condicion Venta 1");
+        condicionVenta1.setCodigoAfip("1");
+        CondicionVenta condicionVenta2 = new CondicionVenta();
+        condicionVenta2.setDescripcion("Condicion Venta 2");
+        condicionVenta2.setCodigoAfip("2");
+        CondicionVenta condicionVenta3 = new CondicionVenta();
+        condicionVenta3.setDescripcion("Condicion Venta 3");
+        condicionVenta3.setCodigoAfip("3");
+        List<CondicionVenta> condicionVentaList = new ArrayList<>();
+        condicionVentaList.add(condicionVenta1);
+        condicionVentaList.add(condicionVenta2);
+        condicionVentaList.add(condicionVenta3);
+        condicionVentaRepository.saveAll(condicionVentaList);
     }
 }

@@ -19,4 +19,16 @@ public class SindicatoServiceImpl implements SindicatoService {
         return sindicatoRepository.findAll();
     }
 
+    @Override
+    public Sindicato buscarSindicatoPorCodigo(String codigo) {
+        Sindicato sindicato = sindicatoRepository.findByCodigo(codigo);
+        if (sindicato == null){
+            sindicato = new Sindicato();
+            sindicato.setCodigo(null);
+            sindicato.setNombre("N/S");
+            sindicato.setCuit("");
+        }
+        return sindicato;
+    }
+
 }

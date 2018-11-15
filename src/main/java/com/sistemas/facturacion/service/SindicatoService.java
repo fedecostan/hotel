@@ -8,4 +8,5 @@ public interface SindicatoService {
 
     List<Sindicato> obtenerTodos();
 
+    Sindicato buscarSindicatoPorCodigo(String codigo);
 }
