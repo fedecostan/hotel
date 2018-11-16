@@ -96,7 +96,7 @@
             };
 
             $scope.buscarProductoModal = function() {
-                $http({method: 'GET',url: facturaUrl + 'cargarProductos'}).then(
+                $http({method: 'GET',url: facturaUrl + 'cargarProductos?fecha=' + formatearFecha($scope.nuevoArticulo.fecha)}).then(
                     function successCallback(response) {
                         $scope.prodcutosTable = new NgTableParams({}, { dataset: response.data});
                         modalProducto.style.display = "block";
@@ -105,7 +105,7 @@
             };
 
             $scope.buscarProductoInput = function() {
-                $http({method: 'GET',url: facturaUrl + 'cargarProductosPorId?id=' + $scope.nuevoArticulo.codigo}).then(
+                $http({method: 'GET',url: facturaUrl + 'cargarProductosPorId?id=' + $scope.nuevoArticulo.codigo + '&fecha=' + formatearFecha($scope.nuevoArticulo.fecha)}).then(
                     function successCallback(response) {
                         $scope.nuevoArticulo.descripcion = response.data.descripcion;
                         $scope.nuevoArticulo.cantidad = 1;

@@ -133,24 +133,31 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
         producto1.setPrecioA(2D);
         producto1.setPrecioA(3D);
         producto1.setFechaDesde(new Date(1514764800000L)); //01/01/2018
+        producto1.setFechaHasta(new Date(1546311600000L)); //01/01/2019
         Producto producto2 = new Producto();
         producto2.setDescripcion("Producto 2");
         producto2.setStock(4);
         producto2.setPrecioA(11D);
         producto2.setPrecioA(22D);
         producto2.setPrecioA(33D);
+        producto2.setFechaDesde(new Date(1514764800000L)); //01/01/2018
+        producto2.setFechaHasta(new Date(1546311600000L)); //01/01/2019
         Producto producto3 = new Producto();
         producto3.setDescripcion("Producto 3");
         producto3.setStock(2);
         producto3.setPrecioA(111D);
         producto3.setPrecioA(222D);
         producto3.setPrecioA(333D);
+        producto3.setFechaDesde(new Date(1514764800000L)); //01/01/2018
+        producto3.setFechaHasta(new Date(1546311600000L)); //01/01/2019
         Producto producto4 = new Producto();
         producto4.setDescripcion("Producto 4");
         producto4.setStock(0);
         producto4.setPrecioA(4D);
         producto4.setPrecioA(5D);
         producto4.setPrecioA(6D);
+        producto4.setFechaDesde(new Date(1514764800000L)); //01/01/2018
+        producto4.setFechaHasta(new Date(1546311600000L)); //01/01/2019
         List<Producto> productoList = new ArrayList<>();
         productoList.add(producto1);
         productoList.add(producto2);

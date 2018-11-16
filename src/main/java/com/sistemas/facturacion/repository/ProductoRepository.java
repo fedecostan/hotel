@@ -11,12 +11,12 @@ import java.util.List;
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     @Query("select p from Producto p where p.id = ?1" +
-            " and p.fechaDesde < TO_DATE(?2,'dd/MM/yyyy')" +
-            " and p.fechaHasta > TO_DATE(?2,'dd/MM/yyyy')")
+            " and p.fechaDesde < STR_TO_DATE(?2,'%d/%m/%Y')" +
+            " and p.fechaHasta > STR_TO_DATE(?2,'%d/%m/%Y')")
     Producto findOneByIdAndFecha(Long id, String fecha);
 
     @Query("select p from Producto p where" +
-            " p.fechaDesde < TO_DATE(?1,'dd/MM/yyyy')" +
-            " and p.fechaHasta > TO_DATE(?1,'dd/MM/yyyy')")
+            " p.fechaDesde < STR_TO_DATE(?1,'%d/%m/%Y')" +
+            " and p.fechaHasta > STR_TO_DATE(?1,'%d/%m/%Y')")
     List<Producto> findByFecha(String fecha);
 }
