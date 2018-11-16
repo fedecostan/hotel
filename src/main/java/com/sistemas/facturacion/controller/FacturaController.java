@@ -3,6 +3,7 @@ package com.sistemas.facturacion.controller;
 import com.sistemas.facturacion.model.Afiliado;
 import com.sistemas.facturacion.model.Producto;
 import com.sistemas.facturacion.model.Sindicato;
+import com.sistemas.facturacion.model.TipoComprobante;
 import com.sistemas.facturacion.service.*;
 import com.sistemas.facturacion.service.dto.InfoPantallaDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,12 @@ public class FacturaController {
         infoPantallaDTO.setSituacionIvaList(situacionIvaService.obtenerTodos());
         infoPantallaDTO.setCondicionVentaList(condicionVentaService.obtenerTodos());
         return infoPantallaDTO;
+    }
+
+    @RequestMapping(value = "/cargarLeyendaComprobante", method = RequestMethod.GET)
+    public @ResponseBody
+    TipoComprobante cargarLeyendaComprobante(@RequestParam("codigo") String codigo){
+        return tipoComprobanteService.obtenerleyenda(codigo);
     }
 
     @RequestMapping(value = "/cargarSindicatos", method = RequestMethod.GET)

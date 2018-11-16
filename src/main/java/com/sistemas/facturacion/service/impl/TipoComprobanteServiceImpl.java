@@ -37,6 +37,11 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
     }
 
     @Override
+    public TipoComprobante obtenerleyenda(String codigo) {
+        return tipoComprobanteRepository.findByCodigo(codigo);
+    }
+
+    @Override
     public void inicializar() {
         TipoComprobante tipoComprobante1 = new TipoComprobante();
         tipoComprobante1.setCodigo("FC");

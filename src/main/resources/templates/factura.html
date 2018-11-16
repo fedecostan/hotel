@@ -33,7 +33,7 @@
                     <input type="date" ng-model="factura.fecha"/>
                 </div>
                 <div class="tipocomprob">
-                    <select class="tipocomprobsele" ng-model="factura.tipoComprobante">
+                    <select class="tipocomprobsele" ng-model="factura.tipoComprobante" ng-change="actualizarLeyenda()">
                         <option value="" disabled selected>Tipo Comprobante</option>
                         <option ng-repeat="comprobante in comprobantes"
                                 value="{{comprobante.codigo}}">{{comprobante.descripcion}}</option>
@@ -154,10 +154,10 @@
                             <input type="text" maxlength="8" ng-model="nuevoArticulo.codigo" ng-change="buscarProductoInput()">
                             <button value="Buscar" title="Busca Artículo" class="button" ng-click="buscarProductoModal()">buscar</button>
                         </td>
-                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.descripcion" ng-disabled="true"></td>
+                        <td>{{nuevoArticulo.descripcion}}</td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.cantidad" ng-change="actualizarNuevoTotal()"></td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.precio" ng-change="actualizarNuevoTotal()"></td>
-                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.total" ng-disabled="true"></td>
+                        <td>{{nuevoArticulo.total}}</td>
                         <td><button value="Guardar" title="Guardar" class="button" ng-click="guardarArticulo()">Gua</button></td>
                     </tr>
                 </table>
@@ -181,7 +181,7 @@
             <div class="encabezado4">
                 <div class="form6">
                     <label for="leyenda" class="form-label">Leyenda al Pie del Comprobante:</label>
-                    <textarea id="leyen">  </textarea>
+                    <textarea id="leyen">{{leyenda}}</textarea>
 
                     <div class="form5">
                         <label for="cae" class="form-label">CAE:(muestro el cae)</label>

@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TipoComprobanteRepository extends JpaRepository<TipoComprobante, Long> {
 
+    TipoComprobante findByCodigo(String codigo);
 }

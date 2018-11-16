@@ -10,4 +10,5 @@ public interface TipoComprobanteService {
 
     void inicializar();
 
+    TipoComprobante obtenerleyenda(String codigo);
 }

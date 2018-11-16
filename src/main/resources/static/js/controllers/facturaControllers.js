@@ -292,12 +292,22 @@
                 }
                 $scope.totales.subtotal = sum;
                 if (typeof $scope.factura.bonificacion === 'undefined'){
-                    $scope.totales.descuento = 0;
+                    $scope.totales.descuento = null;
                     $scope.totales.total = sum;
                 } else {
                     $scope.totales.descuento = $scope.factura.bonificacion;
                     $scope.totales.total = sum - (sum * $scope.factura.bonificacion / 100);
                 }
             };
+
+            $scope.actualizarLeyenda = function () {
+                if ($scope.factura.tipoComprobante != null){
+                    $http({method: 'GET',url: facturaUrl + 'cargarLeyendaComprobante?codigo=' + $scope.factura.tipoComprobante}).then(
+                        function successCallback(response) {
+                            $scope.leyenda = response.data.leyenda;
+                        }, function errorCallback(response) {
+                    });
+                }
+            }
         })
 }());
