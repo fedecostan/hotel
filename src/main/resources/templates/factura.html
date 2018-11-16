@@ -149,9 +149,9 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><input type="date" ng-model="nuevoArticulo.fecha" placeholder="dd-MM-yyyy"/></td>
+                        <td><input type="date" ng-model="nuevoArticulo.fecha" placeholder="dd-MM-yyyy" ng-change="buscarProductoInput()"/></td>
                         <td>
-                            <input type="text" maxlength="8" ng-model="nuevoArticulo.codigo">
+                            <input type="text" maxlength="8" ng-model="nuevoArticulo.codigo" ng-change="buscarProductoInput()">
                             <button value="Buscar" title="Busca Artículo" class="button" ng-click="buscarProductoModal()">buscar</button>
                         </td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.descripcion" ng-disabled="true"></td>
@@ -170,11 +170,8 @@
                                 <td title="'Código'" filter="{ codigo: 'number'}" sorteable="'codigo'">{{producto.id}}</td>
                                 <td title="'Desipcion'" filter="{ descripcion: 'text'}" sorteable="'descripcion'">{{producto.descripcion}}</td>
                                 <td title="'Stock'" filter="{ stock: 'number'}" sorteable="'stock'">{{producto.stock}}</td>
-                                <td title="'Precio A'" filter="{ precioA: 'number'}" sorteable="'precioA'">{{producto.precioA}}</td>
-                                <td title="'Precio B'" filter="{ precioB: 'number'}" sorteable="'precioB'">{{producto.precioB}}</td>
-                                <td title="'Precio C'" filter="{ precioC: 'number'}" sorteable="'precioC'">{{producto.precioC}}</td>
                                 <td width="65px">
-                                    <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionProducto(producto.id, producto.descripcion, producto.precioA, producto.precioB, producto.precioC)">Este!</button>
+                                    <button value="Seleccionar" title="Seleccionar" class="button" ng-disabled="producto.stock==0" ng-click="seleccionProducto(producto.id, producto.descripcion, producto.precioA, producto.precioB, producto.precioC)">Este!</button>
                                 </td>
                             </tr>
                         </table>

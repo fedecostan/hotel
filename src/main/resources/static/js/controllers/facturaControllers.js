@@ -98,7 +98,7 @@
             $scope.buscarProductoModal = function() {
                 $http({method: 'GET',url: facturaUrl + 'cargarProductos?fecha=' + formatearFecha($scope.nuevoArticulo.fecha)}).then(
                     function successCallback(response) {
-                        $scope.prodcutosTable = new NgTableParams({}, { dataset: response.data});
+                        $scope.productosTable = new NgTableParams({}, { dataset: response.data});
                         modalProducto.style.display = "block";
                     }, function errorCallback(response) {
                 });
@@ -108,7 +108,11 @@
                 $http({method: 'GET',url: facturaUrl + 'cargarProductosPorId?id=' + $scope.nuevoArticulo.codigo + '&fecha=' + formatearFecha($scope.nuevoArticulo.fecha)}).then(
                     function successCallback(response) {
                         $scope.nuevoArticulo.descripcion = response.data.descripcion;
-                        $scope.nuevoArticulo.cantidad = 1;
+                        if (response.data.descripcion != "N/P"){
+                            $scope.nuevoArticulo.cantidad = 1;
+                        } else {
+                            $scope.nuevoArticulo.cantidad = null;
+                        }
                         if ($scope.factura.listaPrecio === "A"){
                             $scope.nuevoArticulo.precio = response.data.precioA;
                         } else if ($scope.factura.listaPrecio === "B"){
@@ -228,14 +232,14 @@
 
             $scope.seleccionProducto = function(codigo, descripcion, precioA, precioB, precioC) {
                 $scope.nuevoArticulo.codigo = codigo;
-                $scope.nuevoArticulo.descripcion = response.data.descripcion;
+                $scope.nuevoArticulo.descripcion = descripcion;
                 $scope.nuevoArticulo.cantidad = 1;
                 if ($scope.factura.listaPrecio === "A"){
-                    $scope.nuevoArticulo.precio = response.data.precioA;
+                    $scope.nuevoArticulo.precio = precioA;
                 } else if ($scope.factura.listaPrecio === "B"){
-                    $scope.nuevoArticulo.precio = response.data.precioB;
+                    $scope.nuevoArticulo.precio = precioB;
                 } else {
-                    $scope.nuevoArticulo.precio = response.data.precioC;
+                    $scope.nuevoArticulo.precio = precioC;
                 }
                 modalProducto.style.display = "none";
             };
