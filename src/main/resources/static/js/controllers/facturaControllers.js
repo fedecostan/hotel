@@ -10,6 +10,7 @@
             $scope.nuevoArticulo = [];
             $scope.listaArticulos = [];
             $scope.listaProductos = [];
+            $scope.totales = [];
 
             $scope.factura.fecha = new Date();
             $scope.factura.nroComprobante = '00000047';
@@ -115,10 +116,13 @@
                         }
                         if ($scope.factura.listaPrecio === "A"){
                             $scope.nuevoArticulo.precio = response.data.precioA;
+                            $scope.nuevoArticulo.total = response.data.precioA;
                         } else if ($scope.factura.listaPrecio === "B"){
                             $scope.nuevoArticulo.precio = response.data.precioB;
+                            $scope.nuevoArticulo.total = response.data.precioB;
                         } else {
                             $scope.nuevoArticulo.precio = response.data.precioC;
+                            $scope.nuevoArticulo.total = response.data.precioC;
                         }
                     }, function errorCallback(response) {
                 });
@@ -128,6 +132,13 @@
                 var dia = ("0" + fecha.getDate()).slice(-2);
                 var mes = ("0" + (fecha.getMonth() + 1)).slice(-2);
                 return (dia)+"/"+(mes)+"/"+ fecha.getFullYear();
+            };
+
+            function obtenerFecha(fechaStr) {
+                var dia = Number(fechaStr.substring(0,2));
+                var mes = Number(fechaStr.substring(3,5))-1;
+                var anio = Number(fechaStr.substring(6,10));
+                return new Date(anio,mes,dia);
             };
 
             $http({method: 'GET',url: facturaUrl + 'inicializarData'}).then(
@@ -149,6 +160,7 @@
                 $scope.nuevoArticulo.descripcion = null;
                 $scope.nuevoArticulo.cantidad = null;
                 $scope.nuevoArticulo.precio = null;
+                $scope.nuevoArticulo.total = null;
             };
 
             var articuloId = 0;
@@ -159,13 +171,14 @@
                     descripcion:$scope.nuevoArticulo.descripcion,
                     cantidad:$scope.nuevoArticulo.cantidad,
                     precio:$scope.nuevoArticulo.precio,
-                    total:'YYY',
+                    total:$scope.nuevoArticulo.total,
                     id: articuloId
                 }
                 articuloId++;
                 $scope.listaArticulos.push(nuevo);
                 limpiarNuevoArticulo();
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                actualizarTotales();
             };
 
             $scope.borrarArticulo = function (id) {
@@ -179,6 +192,7 @@
                 }
                 $scope.listaArticulos = nuevoArray;
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                actualizarTotales();
             };
 
             $scope.editarArticulo = function (id) {
@@ -195,10 +209,13 @@
                 }
                 $scope.listaArticulos = nuevoArray;
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
-                $scope.nuevoArticulo.fecha = articuloAEditar.fecha;
+                $scope.nuevoArticulo.fecha = obtenerFecha(articuloAEditar.fecha);
                 $scope.nuevoArticulo.codigo = articuloAEditar.codigo;
+                $scope.nuevoArticulo.descripcion = articuloAEditar.descripcion;
                 $scope.nuevoArticulo.cantidad = articuloAEditar.cantidad;
                 $scope.nuevoArticulo.precio = articuloAEditar.precio;
+                $scope.nuevoArticulo.total = articuloAEditar.total;
+                actualizarTotales();
             };
 
             $scope.seleccionSindicato = function(codigo, nombre, cuit) {
@@ -236,10 +253,13 @@
                 $scope.nuevoArticulo.cantidad = 1;
                 if ($scope.factura.listaPrecio === "A"){
                     $scope.nuevoArticulo.precio = precioA;
+                    $scope.nuevoArticulo.total = precioA;
                 } else if ($scope.factura.listaPrecio === "B"){
                     $scope.nuevoArticulo.precio = precioB;
+                    $scope.nuevoArticulo.total = precioB;
                 } else {
                     $scope.nuevoArticulo.precio = precioC;
+                    $scope.nuevoArticulo.total = precioC;
                 }
                 modalProducto.style.display = "none";
             };
@@ -255,6 +275,29 @@
                 console.log("Condicion de Venta: "+$scope.factura.condicionVenta);
                 console.log("Bonificacion: "+$scope.factura.bonificacion);
                 console.log("Lista Precio: "+$scope.factura.listaPrecio);
+            };
+
+            $scope.actualizarNuevoTotal = function() {
+                $scope.nuevoArticulo.total = $scope.nuevoArticulo.cantidad * $scope.nuevoArticulo.precio;
+            };
+
+            $scope.actualizarDescuento = function () {
+                actualizarTotales();
+            };
+
+            function actualizarTotales() {
+                var sum = 0;
+                for (var i=0; i<$scope.listaArticulos.length; i++){
+                    sum += $scope.listaArticulos[i].total;
+                }
+                $scope.totales.subtotal = sum;
+                if (typeof $scope.factura.bonificacion === 'undefined'){
+                    $scope.totales.descuento = 0;
+                    $scope.totales.total = sum;
+                } else {
+                    $scope.totales.descuento = $scope.factura.bonificacion;
+                    $scope.totales.total = sum - (sum * $scope.factura.bonificacion / 100);
+                }
             };
         })
 }());

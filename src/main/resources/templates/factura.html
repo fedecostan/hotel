@@ -120,7 +120,7 @@
                 </div>
                 <div class="form3">
                     <label class="form-label">Bonificación %</label>
-                    <input type="number" min="0" max="100" class="form-input3" ng-model="factura.bonificacion">
+                    <input type="number" min="0" max="100" class="form-input3" ng-model="factura.bonificacion" ng-change="actualizarDescuento()">
                 </div>
                 <div class="form4">
                     <label class="form-label">Lista A</label>
@@ -155,9 +155,9 @@
                             <button value="Buscar" title="Busca Artículo" class="button" ng-click="buscarProductoModal()">buscar</button>
                         </td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.descripcion" ng-disabled="true"></td>
-                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.cantidad"></td>
-                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.precio"></td>
-                        <td></td>
+                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.cantidad" ng-change="actualizarNuevoTotal()"></td>
+                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.precio" ng-change="actualizarNuevoTotal()"></td>
+                        <td><input type="text" maxlength="7" ng-model="nuevoArticulo.total" ng-disabled="true"></td>
                         <td><button value="Guardar" title="Guardar" class="button" ng-click="guardarArticulo()">Gua</button></td>
                     </tr>
                 </table>
@@ -202,15 +202,15 @@
                     <table>
                         <tr>
                             <td>Subtotal</td>
-                            <td width="150px"></td>
+                            <td width="150px">{{totales.subtotal}}</td>
                         </tr>
                         <tr>
                             <td>Descuento</td>
-                            <td></td>
+                            <td>{{totales.descuento}}</td>
                         </tr>
                         <tr>
                             <td>Total</td>
-                            <td></td>
+                            <td>{{totales.total}}</td>
                         </tr>
                     </table>
                 </div>
