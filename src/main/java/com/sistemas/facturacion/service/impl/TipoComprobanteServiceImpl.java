@@ -97,7 +97,7 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
         afiliado3.setSindicato("222");
         afiliado3.setNombre("Gabriela");
         afiliado3.setApellido("Cardu");
-        afiliado3.setDni("12345678");
+        afiliado3.setDni("123456789");
         List<Afiliado> afiliadoList = new ArrayList<>();
         afiliadoList.add(afiliado1);
         afiliadoList.add(afiliado2);
