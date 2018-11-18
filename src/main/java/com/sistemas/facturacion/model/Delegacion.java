@@ -3,91 +3,85 @@ package com.sistemas.facturacion.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
-@Table(name = "SINDICATO")
+@Table(name = "delegaciones")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Sindicato {
+public class Delegacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
-    private Long id;
-
-    @Column(name = "CODIGO")
+    @Column(name = "codigo")
     private String codigo;
 
-    @Column(name = "NOMBRE")
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "TELEFONO")
+    @Column(name = "telefonos")
     private String telefono;
 
-    @Column(name = "CONTACTO")
+    @Column(name = "contacto")
     private String contacto;
 
-    @Column(name = "CASILLA")
+    @Column(name = "casilla")
     private String casilla;
 
-    @Column(name = "OBSERVACION")
+    @Column(name = "observa")
     private String observacion;
 
-    @Column(name = "FECHA_ALTA")
-    private Date fechaAlta;
+    @Column(name = "fechaalta")
+    private String fechaAlta;
 
-    @Column(name = "USUARIO_ALTA")
+    @Column(name = "usualta")
     private String usuarioAlta;
 
-    @Column(name = "FECHA_MODIFICACION")
-    private Date fechaModificacion;
+    @Column(name = "fechamodi")
+    private String fechaModificacion;
 
-    @Column(name = "USUARIO_MODIFICACION")
+    @Column(name = "usumodi")
     private String usuarioModificacion;
 
-    @Column(name = "CALLE")
+    @Column(name = "calle")
     private String calle;
 
-    @Column(name = "NUMERO")
+    @Column(name = "numero")
     private String numero;
 
-    @Column(name = "PISO")
+    @Column(name = "piso")
     private String piso;
 
-    @Column(name = "DEPARTAMENTO")
+    @Column(name = "depto")
     private String departamento;
 
-    @Column(name = "LOCALIDAD")
+    @Column(name = "localidad")
     private String localidad;
 
-    @Column(name = "ZONA")
+    @Column(name = "zona")
     private String zona;
 
-    @Column(name = "PROVINCIA")
+    @Column(name = "provincia")
     private String provincia;
 
-    @Column(name = "PAIS")
+    @Column(name = "pais")
     private String pais;
 
-    @Column(name = "CODIGO_POSTAL")
+    @Column(name = "codigopostal")
     private String codigoPostal;
 
-    @Column(name = "CBU")
+    @Column(name = "cbu")
     private String cbu;
 
-    @Column(name = "CUIT")
+    @Column(name = "cuit")
     private String cuit;
 
-    @Column(name = "NOMBRE_DESCUENTO")
+    @Column(name = "nombredescuento")
     private String nombreDescuento;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "persoempre")
+    private String personaEmpresa;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "sitiva")
+    private String situacionIva;
 
     public String getCodigo() {
         return codigo;
@@ -137,11 +131,11 @@ public class Sindicato {
         this.observacion = observacion;
     }
 
-    public Date getFechaAlta() {
+    public String getFechaAlta() {
         return fechaAlta;
     }
 
-    public void setFechaAlta(Date fechaAlta) {
+    public void setFechaAlta(String fechaAlta) {
         this.fechaAlta = fechaAlta;
     }
 
@@ -153,11 +147,11 @@ public class Sindicato {
         this.usuarioAlta = usuarioAlta;
     }
 
-    public Date getFechaModificacion() {
+    public String getFechaModificacion() {
         return fechaModificacion;
     }
 
-    public void setFechaModificacion(Date fechaModificacion) {
+    public void setFechaModificacion(String fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
 
@@ -263,5 +257,21 @@ public class Sindicato {
 
     public void setNombreDescuento(String nombreDescuento) {
         this.nombreDescuento = nombreDescuento;
+    }
+
+    public String getPersonaEmpresa() {
+        return personaEmpresa;
+    }
+
+    public void setPersonaEmpresa(String personaEmpresa) {
+        this.personaEmpresa = personaEmpresa;
+    }
+
+    public String getSituacionIva() {
+        return situacionIva;
+    }
+
+    public void setSituacionIva(String situacionIva) {
+        this.situacionIva = situacionIva;
     }
 }

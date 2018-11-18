@@ -5,28 +5,28 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "TIPO_COMPROBANTE")
+@Table(name = "tcomprob")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TipoComprobante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "CODIGO")
+    @Column(name = "codigo")
     private String codigo;
 
-    @Column(name = "DESCRIPCION")
+    @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "TIPO")
+    @Column(name = "tipo")
     private String tipo;
 
-    @Column(name = "LEYENDA")
+    @Column(name = "leyenda")
     private String leyenda;
 
-    @Column(name = "CODIGO_AFIP")
+    @Column(name = "codigoafip")
     private int codigoAfip;
 
     public Long getId() {
