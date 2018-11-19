@@ -6,7 +6,7 @@
     <meta content="width=1336 px">
     <link rel="icon" type="image/png" th:href="@{/img/AMTMB.jpg}"/>
     <link rel="stylesheet" th:href="@{/css/ng-table.min.css}">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <!--<link rel="stylesheet" th:href="@{/css/bootstrap.css}">-->
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <title>A.M.T.M.B.</title>
 </head>
@@ -91,13 +91,13 @@
                                     <td title="'Sindicato'" filter="{ sindicato: 'text'}" sorteable="'sindicato'">{{afiliado.sindicato}}</td>
                                     <td title="'Nro IOMA'" filter="{ ioma: 'text'}" sorteable="'ioma'">{{afiliado.ioma}}</td>
                                     <td title="'Barra'" filter="{ barra: 'text'}" sorteable="'barra'">{{afiliado.barra}}</td>
-                                    <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{afiliado.nombre}}</td>
+                                    <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{afiliado.name}}</td>
                                     <td title="'Cód. Familia'" filter="{ familia: 'text'}" sorteable="'familia'">{{afiliado.familia}}</td>
                                     <td title="'Nro. Documento'" filter="{ dni: 'text'}" sorteable="'dni'">{{afiliado.dni}}</td>
-                                    <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueo}}</td>
+                                    <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueado}}</td>
                                     <td title="'Fecha Baja'" filter="{ fechaBaja: 'text'}" sorteable="'fechaBaja'">{{afiliado.fechaBaja}}</td>
                                     <td width="65px">
-                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionAfiliado(afiliado.id, afiliado.nombre, afiliado.dni)">Este!</button>
+                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionAfiliado(afiliado.value, afiliado.name, afiliado.dni)">Este!</button>
                                     </td>
                                 </tr>
                             </table>

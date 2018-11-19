@@ -80,16 +80,16 @@
 
             $scope.buscarAfiliadoInput = function() {
                 if (sindicatoSeleccionado === null) {
-                    $http({method: 'GET',url: facturaUrl + 'buscarAfiliadoPorId?id=' + $scope.factura.afiliado}).then(
+                    $http({method: 'GET',url: facturaUrl + 'buscarAfiliadoPorId?id=' + $scope.factura.afiliado }).then(
                         function successCallback(response) {
-                            $scope.afiliadoNombre = response.data.nombre;
+                            $scope.afiliadoNombre = response.data.name;
                             $scope.afiliadoDni = response.data.dni;
                         }, function errorCallback(response) {
                     });
                 } else {
                     $http({method: 'GET',url: facturaUrl + 'buscarAfiliadoPorIdYSindicato?id=' + $scope.factura.afiliado + "&sindicato=" + sindicatoSeleccionado}).then(
                         function successCallback(response) {
-                            $scope.afiliadoNombre = response.data.nombre;
+                            $scope.afiliadoNombre = response.data.name;
                             $scope.afiliadoDni = response.data.dni;
                         }, function errorCallback(response) {
                     });

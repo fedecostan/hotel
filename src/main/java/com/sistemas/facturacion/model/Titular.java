@@ -3,6 +3,7 @@ package com.sistemas.facturacion.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "titulares")
@@ -130,6 +131,9 @@ public class Titular {
 
     @Column(name = "modoenvio")
     private String modoEnvio;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "titular", targetEntity = TitularA.class, cascade=CascadeType.ALL)
+    private List<TitularA> titularAList;
 
     public String getNumeroRegistro() {
         return numeroRegistro;
@@ -449,5 +453,13 @@ public class Titular {
 
     public void setModoEnvio(String modoEnvio) {
         this.modoEnvio = modoEnvio;
+    }
+
+    public List<TitularA> getTitularAList() {
+        return titularAList;
+    }
+
+    public void setTitularAList(List<TitularA> titularAList) {
+        this.titularAList = titularAList;
     }
 }

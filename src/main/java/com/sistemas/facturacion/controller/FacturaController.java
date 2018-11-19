@@ -1,12 +1,10 @@
 package com.sistemas.facturacion.controller;
 
-import com.sistemas.facturacion.service.CondicionVentaService;
-import com.sistemas.facturacion.service.DelegacionService;
-import com.sistemas.facturacion.service.SituacionesIVAService;
-import com.sistemas.facturacion.service.TipoComprobanteService;
+import com.sistemas.facturacion.service.*;
 import com.sistemas.facturacion.service.dto.DelegacionDTO;
 import com.sistemas.facturacion.service.dto.InfoPantallaDTO;
 import com.sistemas.facturacion.service.dto.TipoComprobanteDTO;
+import com.sistemas.facturacion.service.dto.TitularDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +25,9 @@ public class FacturaController {
 
     @Autowired
     private DelegacionService delegacionService;
+
+    @Autowired
+    private TitularService titularService;
 
     @RequestMapping(value = "/cargarInformacion", method = RequestMethod.GET)
     public @ResponseBody
@@ -56,30 +57,30 @@ public class FacturaController {
         return delegacionService.buscarDelegacionPorCodigo(codigo);
     }
 
-//    @RequestMapping(value = "/cargarAfiliados", method = RequestMethod.GET)
-//    public @ResponseBody
-//    List<Afiliado> cargarAfiliados(){
-//        return afiliadoService.obtenerTodos();
-//    }
-//
-//    @RequestMapping(value = "/cargarAfiliadosPorSindicato", method = RequestMethod.GET)
-//    public @ResponseBody
-//    List<Afiliado> cargarAfiliadosPorSindicato(@RequestParam("sindicato") String sindicato){
-//        return afiliadoService.obtenerPorSindicato(sindicato);
-//    }
-//
-//    @RequestMapping(value = "/buscarAfiliadoPorId", method = RequestMethod.GET)
-//    public @ResponseBody
-//    Afiliado cargarAfiliadosPorSindicato(@RequestParam("id") Long id){
-//        return afiliadoService.obtenerPorId(id);
-//    }
-//
-//    @RequestMapping(value = "/buscarAfiliadoPorIdYSindicato", method = RequestMethod.GET)
-//    public @ResponseBody
-//    Afiliado cargarAfiliadosPorSindicato(@RequestParam("id") Long id, @RequestParam("sindicato") String sindicato){
-//        return afiliadoService.obtenerPorIdYSindicato(id,sindicato);
-//    }
-//
+    @RequestMapping(value = "/cargarAfiliados", method = RequestMethod.GET)
+    public @ResponseBody
+    List<TitularDTO> cargarAfiliados(){
+        return titularService.obtenerTodos();
+    }
+
+    @RequestMapping(value = "/cargarAfiliadosPorSindicato", method = RequestMethod.GET)
+    public @ResponseBody
+    List<TitularDTO> cargarAfiliadosPorSindicato(@RequestParam("sindicato") String sindicato){
+        return titularService.obtenerPorSindicato(sindicato);
+    }
+
+    @RequestMapping(value = "/buscarAfiliadoPorId", method = RequestMethod.GET)
+    public @ResponseBody
+    TitularDTO buscarAfiliadoPorId(@RequestParam("id") Long id){
+        return titularService.obtenerPorId(id);
+    }
+
+    @RequestMapping(value = "/buscarAfiliadoPorIdYSindicato", method = RequestMethod.GET)
+    public @ResponseBody
+    TitularDTO buscarAfiliadoPorIdYSindicato(@RequestParam("id") Long id, @RequestParam("sindicato") Long sindicato){
+        return titularService.obtenerPorIdYSindicato(id,sindicato);
+    }
+
 //    @RequestMapping(value = "/cargarProductos", method = RequestMethod.GET)
 //    public @ResponseBody
 //    List<Producto> cargarProductos(@RequestParam("fecha") String fecha){
