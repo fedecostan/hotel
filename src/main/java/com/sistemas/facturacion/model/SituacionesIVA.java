@@ -30,7 +30,7 @@ public class SituacionesIVA {
     private String cuentaApertura;
 
     @Column(name = "codigoafip")
-    private int codigoAfip;
+    private Integer codigoAfip;
 
     public String getCodigo() {
         return codigo;
@@ -80,11 +80,11 @@ public class SituacionesIVA {
         this.cuentaApertura = cuentaApertura;
     }
 
-    public int getCodigoAfip() {
+    public Integer getCodigoAfip() {
         return codigoAfip;
     }
 
-    public void setCodigoAfip(int codigoAfip) {
+    public void setCodigoAfip(Integer codigoAfip) {
         this.codigoAfip = codigoAfip;
     }
 }

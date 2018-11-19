@@ -6,6 +6,7 @@
     <meta content="width=1336 px">
     <link rel="icon" type="image/png" th:href="@{/img/AMTMB.jpg}"/>
     <link rel="stylesheet" th:href="@{/css/ng-table.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/app.css}">
     <title>A.M.T.M.B.</title>
 </head>
@@ -36,7 +37,7 @@
                     <select class="tipocomprobsele" ng-model="factura.tipoComprobante" ng-change="actualizarLeyenda()">
                         <option value="" disabled selected>Tipo Comprobante</option>
                         <option ng-repeat="comprobante in comprobantes"
-                                value="{{comprobante.codigo}}">{{comprobante.descripcion}}</option>
+                                value="{{comprobante.value}}">{{comprobante.name}}</option>
                     </select>
                 </div>
                 <div class="puntode">
@@ -62,10 +63,10 @@
                             <span class="close" ng-click="cerrarModal()">&times;</span>
                             <table ng-table="sindicatosTable" class="table" show-filter="true">
                                 <tr ng-repeat="sindicato in $data">
-                                    <td title="'Código'" filter="{ codigo: 'text'}" sorteable="'codigo'">{{sindicato.codigo}}</td>
-                                    <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{sindicato.nombre}}</td>
+                                    <td title="'Código'" filter="{ value: 'text'}" sorteable="'value'">{{sindicato.value}}</td>
+                                    <td title="'Nombre'" filter="{ name: 'text'}" sorteable="'name'">{{sindicato.name}}</td>
                                     <td width="65px">
-                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionSindicato(sindicato.codigo, sindicato.nombre, sindicato.cuit)">Este!</button>
+                                        <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionSindicato(sindicato.value, sindicato.name, sindicato.cuit)">Este!</button>
                                     </td>
                                 </tr>
                             </table>
@@ -108,13 +109,13 @@
                     <select class="sele11" ng-model="factura.situacionIVA">
                         <option value="" disabled selected> Situaciones de IVA</option>
                         <option ng-repeat="situacion in situacionesIva"
-                                value="{{situacion.codigoAfip}}">{{situacion.descripcion}}</option>
+                                value="{{situacion.value}}">{{situacion.name}}</option>
                     </select>
 
                     <select class="sele11" ng-model="factura.condicionVenta">
                         <option value="" disabled selected> Condición de Venta</option>
                         <option ng-repeat="condicion in condicionesVenta"
-                                 value="{{condicion.codigoAfip}}">{{condicion.descripcion}}</option>
+                                 value="{{condicion.value}}">{{condicion.name}}</option>
                     </select>
 
                 </div>

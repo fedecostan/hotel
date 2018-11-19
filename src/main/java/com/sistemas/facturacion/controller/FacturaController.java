@@ -1,48 +1,61 @@
 package com.sistemas.facturacion.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sistemas.facturacion.service.CondicionVentaService;
+import com.sistemas.facturacion.service.DelegacionService;
+import com.sistemas.facturacion.service.SituacionesIVAService;
+import com.sistemas.facturacion.service.TipoComprobanteService;
+import com.sistemas.facturacion.service.dto.DelegacionDTO;
+import com.sistemas.facturacion.service.dto.InfoPantallaDTO;
+import com.sistemas.facturacion.service.dto.TipoComprobanteDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/facturaController")
 public class FacturaController {
 
-//    @Autowired
-//    private TipoComprobanteService tipoComprobanteService;
-//
-//    @RequestMapping(value = "/inicializarData", method = RequestMethod.GET)
-//    public void inicializar(){
-//        tipoComprobanteService.inicializar();
-//    }
-//
-//    @RequestMapping(value = "/cargarInformacion", method = RequestMethod.GET)
-//    public @ResponseBody
-//    InfoPantallaDTO cargarInformacion(){
-//        InfoPantallaDTO infoPantallaDTO = new InfoPantallaDTO();
-//        infoPantallaDTO.setTipoComprobanteList(tipoComprobanteService.obtenerTodos());
-//        infoPantallaDTO.setSituacionIvaList(situacionIvaService.obtenerTodos());
-//        infoPantallaDTO.setCondicionVentaList(condicionVentaService.obtenerTodos());
-//        return infoPantallaDTO;
-//    }
-//
-//    @RequestMapping(value = "/cargarLeyendaComprobante", method = RequestMethod.GET)
-//    public @ResponseBody
-//    TipoComprobante cargarLeyendaComprobante(@RequestParam("codigo") String codigo){
-//        return tipoComprobanteService.obtenerleyenda(codigo);
-//    }
-//
-//    @RequestMapping(value = "/cargarSindicatos", method = RequestMethod.GET)
-//    public @ResponseBody
-//    List<Sindicato> cargarSindicatos(){
-//        return sindicatoService.obtenerTodos();
-//    }
-//
-//    @RequestMapping(value = "/buscarSindicatoPorCodigo", method = RequestMethod.GET)
-//    public @ResponseBody
-//    Sindicato buscarSindicatoPorCodigo(@RequestParam("codigo") String codigo){
-//        return sindicatoService.buscarSindicatoPorCodigo(codigo);
-//    }
-//
+    @Autowired
+    private TipoComprobanteService tipoComprobanteService;
+
+    @Autowired
+    private SituacionesIVAService situacionesIVAService;
+
+    @Autowired
+    private CondicionVentaService condicionVentaService;
+
+    @Autowired
+    private DelegacionService delegacionService;
+
+    @RequestMapping(value = "/cargarInformacion", method = RequestMethod.GET)
+    public @ResponseBody
+    InfoPantallaDTO cargarInformacion(){
+        InfoPantallaDTO infoPantallaDTO = new InfoPantallaDTO();
+        infoPantallaDTO.setTipoComprobanteDTOList(tipoComprobanteService.obtenerTodos());
+        infoPantallaDTO.setSituacionesIVADTOList(situacionesIVAService.obtenerTodos());
+        infoPantallaDTO.setCondicionVentaDTOList(condicionVentaService.obtenerTodos());
+        return infoPantallaDTO;
+    }
+
+    @RequestMapping(value = "/cargarLeyendaComprobante", method = RequestMethod.GET)
+    public @ResponseBody
+    TipoComprobanteDTO cargarLeyendaComprobante(@RequestParam("codigo") String codigo){
+        return tipoComprobanteService.obtenerleyenda(codigo);
+    }
+
+    @RequestMapping(value = "/cargarSindicatos", method = RequestMethod.GET)
+    public @ResponseBody
+    List<DelegacionDTO> cargarSindicatos(){
+        return delegacionService.obtenerTodos();
+    }
+
+    @RequestMapping(value = "/buscarSindicatoPorCodigo", method = RequestMethod.GET)
+    public @ResponseBody
+    DelegacionDTO buscarSindicatoPorCodigo(@RequestParam("codigo") String codigo){
+        return delegacionService.buscarDelegacionPorCodigo(codigo);
+    }
+
 //    @RequestMapping(value = "/cargarAfiliados", method = RequestMethod.GET)
 //    public @ResponseBody
 //    List<Afiliado> cargarAfiliados(){

@@ -50,8 +50,8 @@
             $scope.buscarSindicatoInput = function() {
                 $http({method: 'GET',url: facturaUrl + 'buscarSindicatoPorCodigo?codigo=' + $scope.factura.sindicato}).then(
                     function successCallback(response) {
-                        sindicatoSeleccionado = response.data.codigo;
-                        $scope.sindicatoNombre = response.data.nombre;
+                        sindicatoSeleccionado = response.data.value;
+                        $scope.sindicatoNombre = response.data.name;
                         $scope.sindicatoCuit = response.data.cuit;
                         $scope.factura.afiliado = null;
                         $scope.afiliadoNombre = null;
@@ -141,15 +141,11 @@
                 return new Date(anio,mes,dia);
             };
 
-            $http({method: 'GET',url: facturaUrl + 'inicializarData'}).then(
+            $http({method: 'GET',url: facturaUrl + 'cargarInformacion'}).then(
                 function successCallback(response) {
-                    $http({method: 'GET',url: facturaUrl + 'cargarInformacion'}).then(
-                        function successCallback(response) {
-                            $scope.comprobantes = response.data.tipoComprobanteList;
-                            $scope.situacionesIva = response.data.situacionIvaList;
-                            $scope.condicionesVenta = response.data.condicionVentaList;
-                        }, function errorCallback(response) {
-                    });
+                    $scope.comprobantes = response.data.tipoComprobanteDTOList;
+                    $scope.situacionesIva = response.data.situacionesIVADTOList;
+                    $scope.condicionesVenta = response.data.condicionVentaDTOList;
                 }, function errorCallback(response) {
             });
 
@@ -304,7 +300,7 @@
                 if ($scope.factura.tipoComprobante != null){
                     $http({method: 'GET',url: facturaUrl + 'cargarLeyendaComprobante?codigo=' + $scope.factura.tipoComprobante}).then(
                         function successCallback(response) {
-                            $scope.leyenda = response.data.leyenda;
+                            $scope.leyenda = response.data.name;
                         }, function errorCallback(response) {
                     });
                 }

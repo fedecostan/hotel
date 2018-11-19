@@ -24,10 +24,10 @@ public class CondicionVenta {
     private String indicativo;
 
     @Column(name = "dias")
-    private int dias;
+    private Integer dias;
 
     @Column(name = "codigoafip")
-    private int codigoAfip;
+    private Integer codigoAfip;
 
     public Long getId() {
         return id;
@@ -61,19 +61,19 @@ public class CondicionVenta {
         this.indicativo = indicativo;
     }
 
-    public int getDias() {
+    public Integer getDias() {
         return dias;
     }
 
-    public void setDias(int dias) {
+    public void setDias(Integer dias) {
         this.dias = dias;
     }
 
-    public int getCodigoAfip() {
+    public Integer getCodigoAfip() {
         return codigoAfip;
     }
 
-    public void setCodigoAfip(int codigoAfip) {
+    public void setCodigoAfip(Integer codigoAfip) {
         this.codigoAfip = codigoAfip;
     }
 }

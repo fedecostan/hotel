@@ -27,7 +27,7 @@ public class TipoComprobante {
     private String leyenda;
 
     @Column(name = "codigoafip")
-    private int codigoAfip;
+    private Integer codigoAfip;
 
     public Long getId() {
         return id;
@@ -69,11 +69,11 @@ public class TipoComprobante {
         this.leyenda = leyenda;
     }
 
-    public int getCodigoAfip() {
+    public Integer getCodigoAfip() {
         return codigoAfip;
     }
 
-    public void setCodigoAfip(int codigoAfip) {
+    public void setCodigoAfip(Integer codigoAfip) {
         this.codigoAfip = codigoAfip;
     }
 }
