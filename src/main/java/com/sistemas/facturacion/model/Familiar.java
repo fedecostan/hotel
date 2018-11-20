@@ -14,9 +14,6 @@ public class Familiar {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nroregistro")
-    private String numeroRegistro;
-
     @Column(name = "orden")
     private int orden;
 
@@ -149,20 +146,16 @@ public class Familiar {
     @Column(name = "barra")
     private String barra;
 
+    @JoinColumn(name = "nroregistro")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Titular.class, cascade=CascadeType.ALL)
+    private Titular titular;
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNumeroRegistro() {
-        return numeroRegistro;
-    }
-
-    public void setNumeroRegistro(String numeroRegistro) {
-        this.numeroRegistro = numeroRegistro;
     }
 
     public int getOrden() {
@@ -515,5 +508,13 @@ public class Familiar {
 
     public void setBarra(String barra) {
         this.barra = barra;
+    }
+
+    public Titular getTitular() {
+        return titular;
+    }
+
+    public void setTitular(Titular titular) {
+        this.titular = titular;
     }
 }

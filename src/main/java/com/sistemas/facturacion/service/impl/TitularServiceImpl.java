@@ -22,7 +22,7 @@ public class TitularServiceImpl implements TitularService {
 
     @Override
     public List<TitularDTO> obtenerTodos() {
-        List<Titular> titularList = titularRepository.findAll();
+        List<Titular> titularList = titularRepository.findAllActives();
         List<TitularDTO> titularDTOList = new ArrayList<>();
         for (Titular titular : titularList){
             TitularDTO titularDTO = new TitularDTO();
@@ -34,7 +34,6 @@ public class TitularServiceImpl implements TitularService {
             titularDTO.setFamilia(titular.getCodigoFamilia());
             titularDTO.setDni(titular.getNumeroDocumento());
             titularDTO.setBloqueado(titular.getBloqueado());
-            titularDTO.setFechaBaja("REVISAR");
             titularDTOList.add(titularDTO);
         }
         return titularDTOList;
@@ -54,7 +53,6 @@ public class TitularServiceImpl implements TitularService {
             titularDTO.setFamilia(titular.getCodigoFamilia());
             titularDTO.setDni(titular.getNumeroDocumento());
             titularDTO.setBloqueado(titular.getBloqueado());
-            titularDTO.setFechaBaja("REVISAR");
             titularDTOList.add(titularDTO);
         }
         return titularDTOList;
@@ -74,7 +72,6 @@ public class TitularServiceImpl implements TitularService {
             titularDTO.setFamilia(titular.getCodigoFamilia());
             titularDTO.setDni(titular.getNumeroDocumento());
             titularDTO.setBloqueado(titular.getBloqueado());
-            titularDTO.setFechaBaja("REVISAR");
         } else {
             titularDTO.setName("N/A");
         }
@@ -96,7 +93,6 @@ public class TitularServiceImpl implements TitularService {
             titularDTO.setFamilia(titular.getCodigoFamilia());
             titularDTO.setDni(titular.getNumeroDocumento());
             titularDTO.setBloqueado(titular.getBloqueado());
-            titularDTO.setFechaBaja("REVISAR");
         } else {
             titularDTO.setName("N/A");
         }

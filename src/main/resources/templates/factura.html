@@ -76,8 +76,8 @@
 
                     <div class="form1-form2">
                         <label class="form-label">Afiliado:</label>
-                        <input type="text" maxlength="11" class="form-input2" ng-model="factura.afiliado" ng-change="buscarAfiliadoInput()">
-                        <button title="Busca Afiliado" class="button" ng-click="buscarAfiliadoModal()">BUSCAR</button>
+                        <input type="text" maxlength="11" class="form-input2" ng-model="factura.afiliado" ng-change="buscarAfiliadoInput()" ng-disabled="afiliadoDeshabilitado">
+                        <button title="Busca Afiliado" class="button" ng-click="buscarAfiliadoModal()" ng-disabled="afiliadoDeshabilitado">BUSCAR</button>
                         <label class="form-label">{{afiliadoNombre}}</label>
                         <label class="form-label">{{afiliadoDni}}</label>
                     </div>
@@ -95,7 +95,6 @@
                                     <td title="'Cód. Familia'" filter="{ familia: 'text'}" sorteable="'familia'">{{afiliado.familia}}</td>
                                     <td title="'Nro. Documento'" filter="{ dni: 'text'}" sorteable="'dni'">{{afiliado.dni}}</td>
                                     <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueado}}</td>
-                                    <td title="'Fecha Baja'" filter="{ fechaBaja: 'text'}" sorteable="'fechaBaja'">{{afiliado.fechaBaja}}</td>
                                     <td width="65px">
                                         <button value="Seleccionar" title="Seleccionar" class="button" ng-click="seleccionAfiliado(afiliado.value, afiliado.name, afiliado.dni)">Este!</button>
                                     </td>
@@ -125,11 +124,11 @@
                 </div>
                 <div class="form4">
                     <label class="form-label">Lista A</label>
-                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="A">
+                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="A" ng-disabled="listaPreciosDeshabilitada">
                     <label class="form-label">Lista B</label>
-                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="B">
+                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="B" ng-disabled="listaPreciosDeshabilitada">
                     <label class="form-label">Lista C</label>
-                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="C" ng-checked="true">
+                    <input type="radio" ng-model="factura.listaPrecio" class="form-input-radio" value="C" ng-disabled="listaPreciosDeshabilitada" ng-checked="true">
                 </div>
             </div>
             <div class="encabezado3">
@@ -159,7 +158,7 @@
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.cantidad" ng-change="actualizarNuevoTotal()"></td>
                         <td><input type="text" maxlength="7" ng-model="nuevoArticulo.precio" ng-change="actualizarNuevoTotal()"></td>
                         <td>{{nuevoArticulo.total}}</td>
-                        <td><button value="Guardar" title="Guardar" class="button" ng-click="guardarArticulo()">Gua</button></td>
+                        <td><button value="Guardar" title="Guardar" class="button" ng-click="guardarArticulo()" ng-disabled="agregarArticuloDeshabilitado">Gua</button></td>
                     </tr>
                 </table>
                 <!--MODAL STOCK-->

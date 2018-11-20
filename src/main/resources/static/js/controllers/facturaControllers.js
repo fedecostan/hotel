@@ -18,6 +18,9 @@
             $scope.direccion = 'Calle 1589 - CP AA1111 - CABA';
             $scope.telefono = 'Tel. 236-1258-1245';
             $scope.factura.listaPrecio = 'C';
+            $scope.listaPreciosDeshabilitada = false;
+            $scope.afiliadoDeshabilitado = true;
+            $scope.agregarArticuloDeshabilitado = true;
 
             var modalSindicato = document.getElementById('modalSindicato');
             var modalAfiliado = document.getElementById('modalAfiliado');
@@ -56,6 +59,11 @@
                         $scope.factura.afiliado = null;
                         $scope.afiliadoNombre = null;
                         $scope.afiliadoDni = null;
+                        if (response.data.name != "NO EXISTE"){
+                            $scope.afiliadoDeshabilitado = false;
+                        } else {
+                            $scope.afiliadoDeshabilitado = true;
+                        }
                     }, function errorCallback(response) {
                 });
             };
@@ -111,8 +119,10 @@
                         $scope.nuevoArticulo.descripcion = response.data.name;
                         if (response.data.name != "NO EXISTE"){
                             $scope.nuevoArticulo.cantidad = 1;
+                            $scope.agregarArticuloDeshabilitado = false;
                         } else {
                             $scope.nuevoArticulo.cantidad = null;
+                            $scope.agregarArticuloDeshabilitado = true;
                         }
                         if ($scope.factura.listaPrecio === "A"){
                             $scope.nuevoArticulo.precio = response.data.precioA;
@@ -157,6 +167,7 @@
                 $scope.nuevoArticulo.cantidad = null;
                 $scope.nuevoArticulo.precio = null;
                 $scope.nuevoArticulo.total = null;
+                $scope.agregarArticuloDeshabilitado = true;
             };
 
             var articuloId = 0;
@@ -174,6 +185,7 @@
                 $scope.listaArticulos.push(nuevo);
                 limpiarNuevoArticulo();
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                $scope.listaPreciosDeshabilitada = true;
                 actualizarTotales();
             };
 
@@ -188,6 +200,7 @@
                 }
                 $scope.listaArticulos = nuevoArray;
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                if (nuevoArray.length == 0) $scope.listaPreciosDeshabilitada = false;
                 actualizarTotales();
             };
 
@@ -205,12 +218,14 @@
                 }
                 $scope.listaArticulos = nuevoArray;
                 $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                if (nuevoArray.length == 0) $scope.listaPreciosDeshabilitada = false;
                 $scope.nuevoArticulo.fecha = obtenerFecha(articuloAEditar.fecha);
                 $scope.nuevoArticulo.codigo = articuloAEditar.codigo;
                 $scope.nuevoArticulo.descripcion = articuloAEditar.descripcion;
                 $scope.nuevoArticulo.cantidad = articuloAEditar.cantidad;
                 $scope.nuevoArticulo.precio = articuloAEditar.precio;
                 $scope.nuevoArticulo.total = articuloAEditar.total;
+                $scope.agregarArticuloDeshabilitado = false;
                 actualizarTotales();
             };
 
@@ -222,6 +237,7 @@
                 $scope.factura.afiliado = null;
                 $scope.afiliadoNombre = null;
                 $scope.afiliadoDni = null;
+                $scope.afiliadoDeshabilitado = false;
                 modalSindicato.style.display = "none";
             };
 
@@ -233,6 +249,7 @@
                 $scope.factura.afiliado = null;
                 $scope.afiliadoNombre = null;
                 $scope.afiliadoDni = null;
+                $scope.afiliadoDeshabilitado = true;
                 modalSindicato.style.display = "none";
             };
 
@@ -257,6 +274,7 @@
                     $scope.nuevoArticulo.precio = precioC;
                     $scope.nuevoArticulo.total = precioC;
                 }
+                $scope.agregarArticuloDeshabilitado = false;
                 modalProducto.style.display = "none";
             };
 

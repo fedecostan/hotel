@@ -22,4 +22,12 @@ public interface TitularRepository extends JpaRepository<Titular, Long> {
             " where t.numeroRegistro = ?1" +
             " and ta.delegacion = ?2")
     Titular findByNumeroRegistroAndSindicato(String formattedTitular, String formattedSindicato);
+
+    @Query("select t from Titular t" +
+            " inner join t.titularAList ta" +
+            " inner join t.familiarList fa" +
+            " where (t.bloqueado = 'S' or t.bloqueado = 'N')" +
+            " and fa.fechaBaja = '29991231'" +
+            " and (fa.codigloFamilia = '01' or fa.codigloFamilia = '02')")
+    List<Titular> findAllActives();
 }

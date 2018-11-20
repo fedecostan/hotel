@@ -10,7 +10,6 @@ public class TitularDTO {
     private String familia;
     private String dni;
     private String bloqueado;
-    private String fechaBaja;
 
     public String getValue() {
         return value;
@@ -76,11 +75,4 @@ public class TitularDTO {
         this.bloqueado = bloqueado;
     }
 
-    public String getFechaBaja() {
-        return fechaBaja;
-    }
-
-    public void setFechaBaja(String fechaBaja) {
-        this.fechaBaja = fechaBaja;
-    }
 }
