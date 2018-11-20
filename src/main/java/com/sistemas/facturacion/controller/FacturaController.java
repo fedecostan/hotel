@@ -1,10 +1,7 @@
 package com.sistemas.facturacion.controller;
 
 import com.sistemas.facturacion.service.*;
-import com.sistemas.facturacion.service.dto.DelegacionDTO;
-import com.sistemas.facturacion.service.dto.InfoPantallaDTO;
-import com.sistemas.facturacion.service.dto.TipoComprobanteDTO;
-import com.sistemas.facturacion.service.dto.TitularDTO;
+import com.sistemas.facturacion.service.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +25,9 @@ public class FacturaController {
 
     @Autowired
     private TitularService titularService;
+
+    @Autowired
+    private ArticuloCService articuloCService;
 
     @RequestMapping(value = "/cargarInformacion", method = RequestMethod.GET)
     public @ResponseBody
@@ -81,12 +81,12 @@ public class FacturaController {
         return titularService.obtenerPorIdYSindicato(id,sindicato);
     }
 
-//    @RequestMapping(value = "/cargarProductos", method = RequestMethod.GET)
-//    public @ResponseBody
-//    List<Producto> cargarProductos(@RequestParam("fecha") String fecha){
-//        return productoService.obtenerTodos(fecha);
-//    }
-//
+    @RequestMapping(value = "/cargarProductos", method = RequestMethod.GET)
+    public @ResponseBody
+    List<ArticuloDTO> cargarProductos(@RequestParam("fecha") String fecha){
+        return articuloCService.obtenerTodos(fecha);
+    }
+
 //    @RequestMapping(value = "/cargarProductosPorId", method = RequestMethod.GET)
 //    public @ResponseBody
 //    Producto cargarProductosPorId(@RequestParam("id") Long id, @RequestParam("fecha") String fecha){
