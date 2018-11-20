@@ -87,10 +87,10 @@ public class FacturaController {
         return articuloCService.obtenerTodos(fecha);
     }
 
-//    @RequestMapping(value = "/cargarProductosPorId", method = RequestMethod.GET)
-//    public @ResponseBody
-//    Producto cargarProductosPorId(@RequestParam("id") Long id, @RequestParam("fecha") String fecha){
-//        return productoService.obtenerPorId(id, fecha);
-//    }
+    @RequestMapping(value = "/cargarProductosPorId", method = RequestMethod.GET)
+    public @ResponseBody
+    ArticuloDTO cargarProductosPorId(@RequestParam("id") Long id, @RequestParam("fecha") String fecha){
+        return articuloCService.obtenerPorId(id, fecha);
+    }
 
 }

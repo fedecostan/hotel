@@ -108,8 +108,8 @@
             $scope.buscarProductoInput = function() {
                 $http({method: 'GET',url: facturaUrl + 'cargarProductosPorId?id=' + $scope.nuevoArticulo.codigo + '&fecha=' + formatearFecha($scope.nuevoArticulo.fecha)}).then(
                     function successCallback(response) {
-                        $scope.nuevoArticulo.descripcion = response.data.descripcion;
-                        if (response.data.descripcion != "N/P"){
+                        $scope.nuevoArticulo.descripcion = response.data.name;
+                        if (response.data.name != "NO EXISTE"){
                             $scope.nuevoArticulo.cantidad = 1;
                         } else {
                             $scope.nuevoArticulo.cantidad = null;

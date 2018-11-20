@@ -7,4 +7,6 @@ import java.util.List;
 public interface ArticuloCService {
 
     List<ArticuloDTO> obtenerTodos(String fecha);
+
+    ArticuloDTO obtenerPorId(Long id, String fecha);
 }

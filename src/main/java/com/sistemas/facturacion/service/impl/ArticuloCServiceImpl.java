@@ -35,4 +35,25 @@ public class ArticuloCServiceImpl implements ArticuloCService {
         }
         return articuloDTOList;
     }
+
+    @Override
+    public ArticuloDTO obtenerPorId(Long id, String fecha) {
+        String anio = fecha.substring(6,10);
+        String mes = fecha.substring(3,5);
+        String dia = fecha.substring(0,2);
+        String formattedNumber = String.format("%06d", id);
+        ArticuloC articulo = articuloCRepository.findByNumeroAndFecha(formattedNumber,anio+mes+dia);
+        ArticuloDTO articuloDTO = new ArticuloDTO();
+        if (articulo != null){
+            articuloDTO.setValue(articulo.getRubroArticulo());
+            articuloDTO.setName(articulo.getDescripcion());
+            articuloDTO.setStock(articulo.getStock());
+            articuloDTO.setPrecioA(articulo.getArticuloPList().get(0).getImporteA());
+            articuloDTO.setPrecioB(articulo.getArticuloPList().get(0).getImporteB());
+            articuloDTO.setPrecioC(articulo.getArticuloPList().get(0).getImporteC());
+        } else {
+            articuloDTO.setName("NO EXISTE");
+        }
+        return articuloDTO;
+    }
 }
