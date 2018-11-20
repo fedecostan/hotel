@@ -132,7 +132,7 @@ public class Titular {
     @Column(name = "modoenvio")
     private String modoEnvio;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "titular", targetEntity = TitularA.class, cascade=CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "titular", targetEntity = TitularA.class, cascade=CascadeType.ALL)
     private List<TitularA> titularAList;
 
     public String getNumeroRegistro() {
