@@ -243,7 +243,7 @@
                 modalAfiliado.style.display = "none";
             };
 
-            $scope.seleccionProducto = function(codigo, descripcion, precioA, precioB, precioC) {
+            $scope.seleccionProducto = function(codigo, descripcion, precioA, precioB, precioC, stock) {
                 $scope.nuevoArticulo.codigo = codigo;
                 $scope.nuevoArticulo.descripcion = descripcion;
                 $scope.nuevoArticulo.cantidad = 1;

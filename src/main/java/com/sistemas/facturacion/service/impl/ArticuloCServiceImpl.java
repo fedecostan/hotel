@@ -1,11 +1,13 @@
 package com.sistemas.facturacion.service.impl;
 
+import com.sistemas.facturacion.model.ArticuloC;
 import com.sistemas.facturacion.repository.ArticuloCRepository;
 import com.sistemas.facturacion.service.ArticuloCService;
 import com.sistemas.facturacion.service.dto.ArticuloDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +18,21 @@ public class ArticuloCServiceImpl implements ArticuloCService {
 
     @Override
     public List<ArticuloDTO> obtenerTodos(String fecha) {
-        return null;
+        String anio = fecha.substring(6,10);
+        String mes = fecha.substring(3,5);
+        String dia = fecha.substring(0,2);
+        List<ArticuloC> articuloCList = articuloCRepository.findByFecha(anio+mes+dia);
+        List<ArticuloDTO> articuloDTOList = new ArrayList<>();
+        for (ArticuloC articuloC : articuloCList){
+            ArticuloDTO articuloDTO = new ArticuloDTO();
+            articuloDTO.setValue(articuloC.getRubroArticulo());
+            articuloDTO.setName(articuloC.getDescripcion());
+            articuloDTO.setStock(articuloC.getStock());
+            articuloDTO.setPrecioA(articuloC.getArticuloPList().get(0).getImporteA());
+            articuloDTO.setPrecioB(articuloC.getArticuloPList().get(0).getImporteB());
+            articuloDTO.setPrecioC(articuloC.getArticuloPList().get(0).getImporteC());
+            articuloDTOList.add(articuloDTO);
+        }
+        return articuloDTOList;
     }
 }

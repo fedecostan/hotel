@@ -11,14 +11,14 @@ public class ArticuloP {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rubroarticulo")
-    private String rubroArticulo;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "fechadesde")
-    private String articulo;
+    private String fechaDesde;
 
     @Column(name = "fechahasta")
-    private String descripcion;
+    private String fechaHasta;
 
     @Column(name = "importea")
     private Double importeA;
@@ -29,28 +29,32 @@ public class ArticuloP {
     @Column(name = "importec")
     private Double importeC;
 
-    public String getRubroArticulo() {
-        return rubroArticulo;
+    @JoinColumn(name = "rubroarticulo")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = ArticuloC.class, cascade=CascadeType.ALL)
+    private ArticuloC articuloC;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setRubroArticulo(String rubroArticulo) {
-        this.rubroArticulo = rubroArticulo;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getArticulo() {
-        return articulo;
+    public String getFechaDesde() {
+        return fechaDesde;
     }
 
-    public void setArticulo(String articulo) {
-        this.articulo = articulo;
+    public void setFechaDesde(String fechaDesde) {
+        this.fechaDesde = fechaDesde;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getFechaHasta() {
+        return fechaHasta;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setFechaHasta(String fechaHasta) {
+        this.fechaHasta = fechaHasta;
     }
 
     public Double getImporteA() {
@@ -75,5 +79,13 @@ public class ArticuloP {
 
     public void setImporteC(Double importeC) {
         this.importeC = importeC;
+    }
+
+    public ArticuloC getArticuloC() {
+        return articuloC;
+    }
+
+    public void setArticuloC(ArticuloC articuloC) {
+        this.articuloC = articuloC;
     }
 }

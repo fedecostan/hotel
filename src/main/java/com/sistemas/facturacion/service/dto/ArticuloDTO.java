@@ -4,7 +4,7 @@ public class ArticuloDTO {
 
     private String value;
     private String name;
-    private Long stock;
+    private Integer stock;
     private Double precioA;
     private Double precioB;
     private Double precioC;
@@ -25,11 +25,11 @@ public class ArticuloDTO {
         this.name = name;
     }
 
-    public Long getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(Long stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 

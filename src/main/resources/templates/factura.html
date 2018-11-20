@@ -168,11 +168,11 @@
                         <span class="close" ng-click="cerrarModal()">&times;</span>
                         <table ng-table="productosTable" class="table" show-filter="true">
                             <tr ng-repeat="producto in $data">
-                                <td title="'Código'" filter="{ codigo: 'number'}" sorteable="'codigo'">{{producto.id}}</td>
-                                <td title="'Desipcion'" filter="{ descripcion: 'text'}" sorteable="'descripcion'">{{producto.descripcion}}</td>
+                                <td title="'Código'" filter="{ codigo: 'number'}" sorteable="'codigo'">{{producto.value}}</td>
+                                <td title="'Desipcion'" filter="{ descripcion: 'text'}" sorteable="'descripcion'">{{producto.name}}</td>
                                 <td title="'Stock'" filter="{ stock: 'number'}" sorteable="'stock'">{{producto.stock}}</td>
                                 <td width="65px">
-                                    <button value="Seleccionar" title="Seleccionar" class="button" ng-disabled="producto.stock==0" ng-click="seleccionProducto(producto.id, producto.descripcion, producto.precioA, producto.precioB, producto.precioC)">Este!</button>
+                                    <button value="Seleccionar" title="Seleccionar" class="button" ng-disabled="producto.stock==0" ng-click="seleccionProducto(producto.value, producto.name, producto.precioA, producto.precioB, producto.precioC, producto.stock)">Este!</button>
                                 </td>
                             </tr>
                         </table>
