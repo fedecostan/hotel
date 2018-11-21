@@ -28,6 +28,7 @@
             var modalAfiliado = document.getElementById('modalAfiliado');
             var modalProducto = document.getElementById('modalProducto');
             var modalError = document.getElementById('modalError');
+            var modalCargando = document.getElementById('modalCargando');
             var span = document.getElementsByClassName("close")[0];
             $scope.cerrarModal = function() {
                 modalSindicato.style.display = "none";
@@ -50,6 +51,14 @@
                 }
             };
 
+            function mostrarCargando () {
+                modalCargando.style.display = "block";
+            };
+
+            function ocultarCargando () {
+                modalCargando.style.display = "none";
+            };
+
             function mostrarError (mensaje) {
                 $scope.mensajeError = mensaje;
                 modalError.style.display = "block";
@@ -63,6 +72,7 @@
                     }, function errorCallback(response) {
                 });
             };
+
             $scope.buscarSindicatoInput = function() {
                 $http({method: 'GET',url: facturaUrl + 'buscarSindicatoPorCodigo?codigo=' + $scope.factura.sindicato}).then(
                     function successCallback(response) {
@@ -195,8 +205,11 @@
                 return new Date(anio,mes,dia);
             };
 
+            mostrarCargando();
+
             $http({method: 'GET',url: facturaUrl + 'cargarInformacion'}).then(
                 function successCallback(response) {
+                    ocultarCargando();
                     $scope.comprobantes = response.data.tipoComprobanteDTOList;
                     $scope.situacionesIva = response.data.situacionesIVADTOList;
                     $scope.condicionesVenta = response.data.condicionVentaDTOList;
@@ -365,6 +378,7 @@
             };
 
             $scope.actualizarComprobante = function () {
+                mostrarCargando();
                 if ($scope.factura.tipoComprobante != null){
                     $http({method: 'GET',url: facturaUrl + 'cargarLeyendaComprobante?codigo=' + $scope.factura.tipoComprobante}).then(
                         function successCallback(response) {
@@ -373,6 +387,7 @@
                     });
                     $http({method: 'GET',url: facturaUrl + 'buscarComprobante?comp=' + $scope.factura.tipoComprobante}).then(
                         function successCallback(response) {
+                            ocultarCargando();
                             $scope.factura.nroComprobante = response.data.numero;
                                 if (response.data.numero != "1"){
                                 var anio = response.data.fecha.substring(0,4);
