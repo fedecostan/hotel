@@ -156,7 +156,7 @@
             function controlarStock(value, cantidad, busqueda){
                 var encontrado = false;
                 for (var i = 0; i < $scope.controlStock.length; i++){
-                    if ($scope.controlStock[i].value == value){
+                    if ($scope.controlStock[i].value == Number(value)){
                         encontrado = true;
                         if (!busqueda){
                             if ($scope.controlStock[i].stock >= cantidad){
@@ -169,14 +169,14 @@
                     }
                 }
                 if (!encontrado){
-                    $scope.controlStock.push({value:value,stock:cantidad});
+                    $scope.controlStock.push({value:Number(value),stock:cantidad});
                 }
                 return true;
             };
 
             function recuperarStock(value, cantidad){
                 for (var i = 0; i < $scope.controlStock.length; i++){
-                    if ($scope.controlStock[i].value == value){
+                    if ($scope.controlStock[i].value == Number(value)){
                         $scope.controlStock[i].stock = Number($scope.controlStock[i].stock) + Number(cantidad);
                     }
                 }
