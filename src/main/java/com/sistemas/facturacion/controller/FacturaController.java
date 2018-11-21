@@ -29,6 +29,9 @@ public class FacturaController {
     @Autowired
     private ArticuloCService articuloCService;
 
+    @Autowired
+    private ComprobanteService comprobanteService;
+
     @RequestMapping(value = "/cargarInformacion", method = RequestMethod.GET)
     public @ResponseBody
     InfoPantallaDTO cargarInformacion(){
@@ -91,6 +94,12 @@ public class FacturaController {
     public @ResponseBody
     ArticuloDTO cargarProductosPorId(@RequestParam("id") Long id, @RequestParam("fecha") String fecha){
         return articuloCService.obtenerPorId(id, fecha);
+    }
+
+    @RequestMapping(value = "/buscarComprobante", method = RequestMethod.GET)
+    public @ResponseBody
+    ComprobanteDTO buscarComprobante(@RequestParam("comp") String tipoComprobante){
+        return comprobanteService.buscarUltimoComprobante(tipoComprobante);
     }
 
 }

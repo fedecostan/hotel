@@ -13,7 +13,8 @@
             $scope.totales = [];
 
             $scope.factura.fecha = new Date();
-            $scope.factura.nroComprobante = '00000047';
+            $scope.factura.nroComprobante = '';
+            $scope.fechaMinimaFactura = '1900-01-01';
 
             $scope.direccion = 'Calle 1589 - CP AA1111 - CABA';
             $scope.telefono = 'Tel. 236-1258-1245';
@@ -314,11 +315,24 @@
                 }
             };
 
-            $scope.actualizarLeyenda = function () {
+            $scope.actualizarComprobante = function () {
                 if ($scope.factura.tipoComprobante != null){
                     $http({method: 'GET',url: facturaUrl + 'cargarLeyendaComprobante?codigo=' + $scope.factura.tipoComprobante}).then(
                         function successCallback(response) {
                             $scope.leyenda = response.data.name;
+                        }, function errorCallback(response) {
+                    });
+                    $http({method: 'GET',url: facturaUrl + 'buscarComprobante?comp=' + $scope.factura.tipoComprobante}).then(
+                        function successCallback(response) {
+                            $scope.factura.nroComprobante = response.data.numero;
+                                if (response.data.numero != "1"){
+                                var anio = response.data.fecha.substring(0,4);
+                                var mes = response.data.fecha.substring(4,6);
+                                var dia = response.data.fecha.substring(6,8);
+                                $scope.fechaMinimaFactura = anio+'-'+mes+'-'+dia;
+                            } else {
+                                $scope.fechaMinimaFactura = '1900-01-01';
+                            }
                         }, function errorCallback(response) {
                     });
                 }

@@ -31,10 +31,10 @@
             <div class="encabezado1">
                 <div class="fechade">
                     <label>Fecha:</label>
-                    <input type="date" ng-model="factura.fecha"/>
+                    <input type="date" ng-model="factura.fecha" min="{{fechaMinimaFactura}}"/>
                 </div>
                 <div class="tipocomprob">
-                    <select class="tipocomprobsele" ng-model="factura.tipoComprobante" ng-change="actualizarLeyenda()">
+                    <select class="tipocomprobsele" ng-model="factura.tipoComprobante" ng-change="actualizarComprobante()">
                         <option value="" disabled selected>Tipo Comprobante</option>
                         <option ng-repeat="comprobante in comprobantes"
                                 value="{{comprobante.value}}">{{comprobante.name}}</option>
