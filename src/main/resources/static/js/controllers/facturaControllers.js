@@ -11,6 +11,7 @@
             $scope.listaArticulos = [];
             $scope.listaProductos = [];
             $scope.totales = [];
+            $scope.controlStock = [];
 
             $scope.factura.fecha = new Date();
             $scope.factura.nroComprobante = '';
@@ -26,11 +27,13 @@
             var modalSindicato = document.getElementById('modalSindicato');
             var modalAfiliado = document.getElementById('modalAfiliado');
             var modalProducto = document.getElementById('modalProducto');
+            var modalError = document.getElementById('modalError');
             var span = document.getElementsByClassName("close")[0];
             $scope.cerrarModal = function() {
                 modalSindicato.style.display = "none";
                 modalAfiliado.style.display = "none";
                 modalProducto.style.display = "none";
+                modalError.style.display = "none";
             };
             window.onclick = function(event) {
                 if (event.target == modalSindicato) {
@@ -42,7 +45,16 @@
                 if (event.target == modalProducto) {
                     modalProducto.style.display = "none";
                 }
+                if (event.target == modalError) {
+                    modalError.style.display = "none";
+                }
             };
+
+            function mostrarError (mensaje) {
+                $scope.mensajeError = mensaje;
+                modalError.style.display = "block";
+            };
+
             $scope.buscarSindicatoModal = function() {
                 $http({method: 'GET',url: facturaUrl + 'cargarSindicatos'}).then(
                     function successCallback(response) {
@@ -119,8 +131,10 @@
                     function successCallback(response) {
                         $scope.nuevoArticulo.descripcion = response.data.name;
                         if (response.data.name != "NO EXISTE"){
+                            controlarStock(response.data.value,1,true);
                             $scope.nuevoArticulo.cantidad = 1;
                             $scope.agregarArticuloDeshabilitado = false;
+                            $scope.nuevoArticulo.value = response.data.value;
                         } else {
                             $scope.nuevoArticulo.cantidad = null;
                             $scope.agregarArticuloDeshabilitado = true;
@@ -137,6 +151,35 @@
                         }
                     }, function errorCallback(response) {
                 });
+            };
+
+            function controlarStock(value, cantidad, busqueda){
+                var encontrado = false;
+                for (var i = 0; i < $scope.controlStock.length; i++){
+                    if ($scope.controlStock[i].value == value){
+                        encontrado = true;
+                        if (!busqueda){
+                            if ($scope.controlStock[i].stock >= cantidad){
+                                $scope.controlStock[i].stock = Number($scope.controlStock[i].stock) - Number(cantidad);
+                            } else {
+                                mostrarError("Se ha excedido el Stock disponible: " + $scope.controlStock[i].stock);
+                                return false;
+                            }
+                        }
+                    }
+                }
+                if (!encontrado){
+                    $scope.controlStock.push({value:value,stock:cantidad});
+                }
+                return true;
+            };
+
+            function recuperarStock(value, cantidad){
+                for (var i = 0; i < $scope.controlStock.length; i++){
+                    if ($scope.controlStock[i].value == value){
+                        $scope.controlStock[i].stock = Number($scope.controlStock[i].stock) + Number(cantidad);
+                    }
+                }
             };
 
             function formatearFecha(fecha) {
@@ -173,21 +216,23 @@
 
             var articuloId = 0;
             $scope.guardarArticulo = function () {
-                var nuevo = {
-                    fecha:formatearFecha($scope.nuevoArticulo.fecha),
-                    codigo:$scope.nuevoArticulo.codigo,
-                    descripcion:$scope.nuevoArticulo.descripcion,
-                    cantidad:$scope.nuevoArticulo.cantidad,
-                    precio:$scope.nuevoArticulo.precio,
-                    total:$scope.nuevoArticulo.total,
-                    id: articuloId
+                if (controlarStock($scope.nuevoArticulo.codigo,$scope.nuevoArticulo.cantidad, false)){
+                    var nuevo = {
+                        fecha:formatearFecha($scope.nuevoArticulo.fecha),
+                        codigo:$scope.nuevoArticulo.codigo,
+                        descripcion:$scope.nuevoArticulo.descripcion,
+                        cantidad:$scope.nuevoArticulo.cantidad,
+                        precio:$scope.nuevoArticulo.precio,
+                        total:$scope.nuevoArticulo.total,
+                        id: articuloId
+                    }
+                    articuloId++;
+                    $scope.listaArticulos.push(nuevo);
+                    limpiarNuevoArticulo();
+                    $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
+                    $scope.listaPreciosDeshabilitada = true;
+                    actualizarTotales();
                 }
-                articuloId++;
-                $scope.listaArticulos.push(nuevo);
-                limpiarNuevoArticulo();
-                $scope.articulosTable = new NgTableParams({}, { dataset: $scope.listaArticulos});
-                $scope.listaPreciosDeshabilitada = true;
-                actualizarTotales();
             };
 
             $scope.borrarArticulo = function (id) {
@@ -197,6 +242,8 @@
                     var articulo = $scope.listaArticulos.shift();
                     if (articulo.id != id) {
                         nuevoArray.push(articulo);
+                    } else {
+                        recuperarStock(articulo.codigo,articulo.cantidad);
                     }
                 }
                 $scope.listaArticulos = nuevoArray;
@@ -227,6 +274,7 @@
                 $scope.nuevoArticulo.precio = articuloAEditar.precio;
                 $scope.nuevoArticulo.total = articuloAEditar.total;
                 $scope.agregarArticuloDeshabilitado = false;
+                recuperarStock(articuloAEditar.codigo,articuloAEditar.cantidad);
                 actualizarTotales();
             };
 
@@ -262,6 +310,7 @@
             };
 
             $scope.seleccionProducto = function(codigo, descripcion, precioA, precioB, precioC, stock) {
+                controlarStock(codigo,stock,true);
                 $scope.nuevoArticulo.codigo = codigo;
                 $scope.nuevoArticulo.descripcion = descripcion;
                 $scope.nuevoArticulo.cantidad = 1;
