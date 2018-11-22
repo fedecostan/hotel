@@ -10,10 +10,6 @@ import javax.persistence.*;
 public class TitularA {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "delegacion")
     private String delegacion;
 
@@ -50,14 +46,6 @@ public class TitularA {
     @JoinColumn(name = "nroregistro")
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Titular.class, cascade=CascadeType.ALL)
     private Titular titular;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDelegacion() {
         return delegacion;

@@ -10,10 +10,6 @@ import javax.persistence.*;
 public class ArticuloP {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "fechadesde")
     private String fechaDesde;
 
@@ -32,14 +28,6 @@ public class ArticuloP {
     @JoinColumn(name = "rubroarticulo")
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = ArticuloC.class, cascade=CascadeType.ALL)
     private ArticuloC articuloC;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getFechaDesde() {
         return fechaDesde;

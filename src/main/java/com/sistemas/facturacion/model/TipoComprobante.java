@@ -10,10 +10,6 @@ import javax.persistence.*;
 public class TipoComprobante {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
     @Column(name = "codigo")
     private String codigo;
 
@@ -28,14 +24,6 @@ public class TipoComprobante {
 
     @Column(name = "codigoafip")
     private Integer codigoAfip;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCodigo() {
         return codigo;

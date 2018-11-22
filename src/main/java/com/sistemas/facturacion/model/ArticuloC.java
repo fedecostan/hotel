@@ -11,7 +11,6 @@ import java.util.List;
 public class ArticuloC {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rubroarticulo")
     private String rubroArticulo;
 

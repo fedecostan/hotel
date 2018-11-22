@@ -11,7 +11,6 @@ import java.util.List;
 public class Titular {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "nroregistro")
     private String numeroRegistro;
 

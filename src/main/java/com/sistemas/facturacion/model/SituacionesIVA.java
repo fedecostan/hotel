@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class SituacionesIVA {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo")
     private String codigo;
 
