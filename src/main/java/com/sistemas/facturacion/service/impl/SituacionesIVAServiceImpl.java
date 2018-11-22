@@ -22,7 +22,7 @@ public class SituacionesIVAServiceImpl implements SituacionesIVAService {
 
     @Override
     public List<SituacionesIVADTO> obtenerTodos() {
-        List<SituacionesIVA> situacionesIVAList = situacionesIVARepository.findAll();
+        List<SituacionesIVA> situacionesIVAList = situacionesIVARepository.findTodos();
         List<SituacionesIVADTO> situacionesIVADTOList = new ArrayList<>();
         for (SituacionesIVA situacionesIVA : situacionesIVAList){
             SituacionesIVADTO situacionesIVADTO = new SituacionesIVADTO();

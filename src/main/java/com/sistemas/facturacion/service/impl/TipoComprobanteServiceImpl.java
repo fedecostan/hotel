@@ -18,7 +18,7 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
 
     @Override
     public List<TipoComprobanteDTO> obtenerTodos() {
-        List<TipoComprobante> tipoComprobanteList = tipoComprobanteRepository.findAll();
+        List<TipoComprobante> tipoComprobanteList = tipoComprobanteRepository.findTodos();
         List<TipoComprobanteDTO> tipoComprobanteDTOList = new ArrayList<>();
         for (TipoComprobante tipoComprobante : tipoComprobanteList){
             TipoComprobanteDTO tipoComprobanteDTO = new TipoComprobanteDTO();

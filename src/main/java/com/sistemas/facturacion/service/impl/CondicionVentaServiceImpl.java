@@ -22,7 +22,7 @@ public class CondicionVentaServiceImpl implements CondicionVentaService {
 
     @Override
     public List<CondicionVentaDTO> obtenerTodos() {
-        List<CondicionVenta> condicionVentaList = condicionVentaRepository.findAll();
+        List<CondicionVenta> condicionVentaList = condicionVentaRepository.findTodos();
         List<CondicionVentaDTO> condicionVentaDTOList = new ArrayList<>();
         for (CondicionVenta condicionVenta : condicionVentaList){
             CondicionVentaDTO condicionVentaDTO = new CondicionVentaDTO();
