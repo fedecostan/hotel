@@ -91,7 +91,7 @@
                                     <td title="'Sindicato'" filter="{ sindicato: 'text'}" sorteable="'sindicato'">{{afiliado.sindicato}}</td>
                                     <td title="'Nro IOMA'" filter="{ ioma: 'text'}" sorteable="'ioma'">{{afiliado.ioma}}</td>
                                     <td title="'Barra'" filter="{ barra: 'text'}" sorteable="'barra'">{{afiliado.barra}}</td>
-                                    <td title="'Nombre'" filter="{ nombre: 'text'}" sorteable="'nombre'">{{afiliado.name}}</td>
+                                    <td title="'Nombre'" filter="{ name: 'text'}" sorteable="'nombre'">{{afiliado.name}}</td>
                                     <td title="'Cód. Familia'" filter="{ familia: 'text'}" sorteable="'familia'">{{afiliado.familia}}</td>
                                     <td title="'Nro. Documento'" filter="{ dni: 'text'}" sorteable="'dni'">{{afiliado.dni}}</td>
                                     <td title="'Bloqueo'" filter="{ bloqueo: 'text'}" sorteable="'bloqueo'">{{afiliado.bloqueado}}</td>
@@ -168,7 +168,7 @@
                         <table ng-table="productosTable" class="table" show-filter="true">
                             <tr ng-repeat="producto in $data">
                                 <td title="'Código'" filter="{ codigo: 'number'}" sorteable="'codigo'">{{producto.value}}</td>
-                                <td title="'Desipcion'" filter="{ descripcion: 'text'}" sorteable="'descripcion'">{{producto.name}}</td>
+                                <td title="'Desipcion'" filter="{ name: 'text'}" sorteable="'descripcion'">{{producto.name}}</td>
                                 <td title="'Stock'" filter="{ stock: 'number'}" sorteable="'stock'">{{producto.stock}}</td>
                                 <td width="65px">
                                     <button value="Seleccionar" title="Seleccionar" class="button" ng-disabled="producto.stock==0" ng-click="seleccionProducto(producto.value, producto.name, producto.precioA, producto.precioB, producto.precioC, producto.stock)">Este!</button>

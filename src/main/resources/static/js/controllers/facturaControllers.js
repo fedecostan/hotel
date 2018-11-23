@@ -356,6 +356,11 @@
 
             $scope.actualizarNuevoTotal = function() {
                 $scope.nuevoArticulo.total = $scope.nuevoArticulo.cantidad * $scope.nuevoArticulo.precio;
+                if ($scope.nuevoArticulo.cantidad < 1) {
+                    $scope.agregarArticuloDeshabilitado = true;
+                } else {
+                    $scope.agregarArticuloDeshabilitado = false;
+                }
             };
 
             $scope.actualizarDescuento = function () {
@@ -388,7 +393,7 @@
                     $http({method: 'GET',url: facturaUrl + 'buscarComprobante?comp=' + $scope.factura.tipoComprobante}).then(
                         function successCallback(response) {
                             ocultarCargando();
-                            $scope.factura.nroComprobante = response.data.numero;
+                            $scope.factura.nroComprobante = ('0000000' + Number(response.data.numero.substring(4,12))+1).slice(-8);
                                 if (response.data.numero != "1"){
                                 var anio = response.data.fecha.substring(0,4);
                                 var mes = response.data.fecha.substring(4,6);

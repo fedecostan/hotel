@@ -21,10 +21,12 @@ public class TipoComprobanteServiceImpl implements TipoComprobanteService {
         List<TipoComprobante> tipoComprobanteList = tipoComprobanteRepository.findTodos();
         List<TipoComprobanteDTO> tipoComprobanteDTOList = new ArrayList<>();
         for (TipoComprobante tipoComprobante : tipoComprobanteList){
-            TipoComprobanteDTO tipoComprobanteDTO = new TipoComprobanteDTO();
-            tipoComprobanteDTO.setName(tipoComprobante.getDescripcion());
-            tipoComprobanteDTO.setValue(tipoComprobante.getCodigo());
-            tipoComprobanteDTOList.add(tipoComprobanteDTO);
+            if (tipoComprobante.getCodigoAfip()!=null && tipoComprobante.getCodigoAfip() > 0) {
+                TipoComprobanteDTO tipoComprobanteDTO = new TipoComprobanteDTO();
+                tipoComprobanteDTO.setName(tipoComprobante.getDescripcion());
+                tipoComprobanteDTO.setValue(tipoComprobante.getCodigo());
+                tipoComprobanteDTOList.add(tipoComprobanteDTO);
+            }
         }
         return tipoComprobanteDTOList;
     }
