@@ -1,11 +1,9 @@
 package com.sistemas.facturacion.service.impl;
 
 import com.sistemas.facturacion.model.Delegacion;
-import com.sistemas.facturacion.model.TipoComprobante;
 import com.sistemas.facturacion.repository.DelegacionRepository;
 import com.sistemas.facturacion.service.DelegacionService;
 import com.sistemas.facturacion.service.dto.DelegacionDTO;
-import com.sistemas.facturacion.service.dto.TipoComprobanteDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
