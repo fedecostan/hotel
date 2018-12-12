@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.sistemas.facturacion</groupId>
-    <artifactId>facturacion-api</artifactId>
+    <groupId>com.sistemas.hotel</groupId>
+    <artifactId>hotel-api</artifactId>
     <version>0.0.1</version>
     <packaging>war</packaging>
 
-    <name>facturacion-api</name>
+    <name>hotel-api</name>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -117,18 +117,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.jvnet.jax-ws-commons</groupId>-->
-                <!--<artifactId>jaxws-maven-plugin</artifactId>-->
-                <!--<version>2.3</version>-->
-                <!--<configuration>-->
-                    <!--<xdebug>true</xdebug>-->
-                    <!--<sourceDestDir>src/main/java/com/sistemas/facturacion/service/afipService</sourceDestDir>-->
-                    <!--<wsdlUrls>-->
-                        <!--<wsdlUrl>https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL</wsdlUrl>-->
-                    <!--</wsdlUrls>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 
