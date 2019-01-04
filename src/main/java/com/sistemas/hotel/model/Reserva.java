@@ -20,10 +20,12 @@ public class Reserva {
     @Column(name = "FECHA_SALIDA")
     private Date fechaSalida;
 
-    @JoinColumn(name="HABITACION")
+    @JoinColumn(name = "HABITACION")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Habitacion.class, cascade=CascadeType.ALL)
     private Habitacion habitacion;
 
     @JoinColumn(name="HUESPED")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = Huesped.class, cascade=CascadeType.ALL)
     private Huesped huesped;
 
     public Long getId() {

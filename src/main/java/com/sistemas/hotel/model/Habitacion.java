@@ -3,6 +3,7 @@ package com.sistemas.hotel.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "HABITACION")
@@ -17,10 +18,14 @@ public class Habitacion {
     private Integer numero;
 
     @JoinColumn(name="TIPO")
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = TipoHabitacion.class, cascade=CascadeType.ALL)
     private TipoHabitacion tipoHabitacion;
 
     @Column(name = "CAPACIDAD")
     private Integer capacidad;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "habitacion", targetEntity = Reserva.class, cascade=CascadeType.ALL)
+    private List<Reserva> reservaList;
 
     public Long getId() {
         return id;
@@ -52,5 +57,13 @@ public class Habitacion {
 
     public void setCapacidad(Integer capacidad) {
         this.capacidad = capacidad;
+    }
+
+    public List<Reserva> getReservaList() {
+        return reservaList;
+    }
+
+    public void setReservaList(List<Reserva> reservaList) {
+        this.reservaList = reservaList;
     }
 }

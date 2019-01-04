@@ -17,7 +17,7 @@ public class TipoHabitacion {
     @Column(name = "DESCRIPCION")
     private String descripcion;
 
-    @OneToMany(mappedBy = "tipoHabitacion")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoHabitacion", targetEntity = Habitacion.class, cascade=CascadeType.ALL)
     private List<Habitacion> habitacionList;
 
     public Long getId() {

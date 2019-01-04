@@ -3,6 +3,7 @@ package com.sistemas.hotel.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "HUESPED")
@@ -21,6 +22,9 @@ public class Huesped {
 
     @Column(name = "DNI")
     private String dni;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "huesped", targetEntity = Reserva.class, cascade=CascadeType.ALL)
+    private List<Reserva> reservaList;
 
     public Long getId() {
         return id;
